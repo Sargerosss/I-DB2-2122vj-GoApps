@@ -1,3 +1,5 @@
+Chapter 3
+
 Integers:
 Deze worden opgeslagen in een base-2 systeem, oftewel een 1 en een 0. Wij werken met een base-10 systeem, uiteindelijk gaan we gewoon naar 2 cijfers, dan 3 etc tot we uiteindelijk tot ver in de miljoenen of miljarden zitten.
 
@@ -9,8 +11,6 @@ Largest 8 digit number:
 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128 = 255
 
 dus 11111111 = 255
-
-
 
 var number = 32132 * 42452
 fmt.Println(number)

@@ -1,0 +1,32 @@
+Manieren om variables te maken:
+1) (Const/var) + (naam) + (type)
+2) (naam) := (waarde)
+
+Waarde x
+x := 5; x += 1
+
+Hier komt 6 uit, dit komt omdat je begint bij 5, en je zegt eigenlijk x = x + 1 (oftewel vervang x met x + 1)
+
+Scope:
+De scope is eigenlijk bijvoorbeeld binnen een functie, alles binnen een functie hoort tot dezelfde scope 
+maar een variabele binnen die functie, kan je niet erbuiten gebruiken. 
+
+Hierdoor wordt er dus onderscheid gemaakt tussen local en global variables, local variables vallen binnen een functie en dus binnen de scope
+global kan altijd gebruikt worden omdat het altijd beschikbaar is.
+
+Verschil var en const:
+
+Const kan niet meer veranderd worden door bijvoorbeeld x = 5
+Het blijft altijd de waarde die gegeven wordt:
+
+Voorbeeld:
+const x string = "hello world"
+x = "hello" 
+
+Dit zal niet werken omdat de constante variabele niet veranderd kan worden.
+
+Var voorbeeld:
+var x string = "hello world"
+x = "hello"
+
+dit gaat wel werken omdat de variable geen constante is. 
