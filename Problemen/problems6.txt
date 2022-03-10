@@ -1,0 +1,24 @@
+Chapter 6:
+
+4e element in een array/slice:
+
+Standaard begint het tellen vanaf 0, dus het eerste element heeft index 0
+Het tweede index 1
+Derde index 2
+4e index 3 
+
+Dus dan kom je uit op 
+(naam array)[3]
+
+Voorbeeld:
+x[3] (of fmt.Println(x[3]))
+
+De lengte van een slice bij make([]int, 3, 9)
+
+Van de 9 beschikbare onderdelen, pakt de slice er 3. Een klein puntje dus van het geheel.
+
+Wat komt hieruit bij x[2:5]
+x := [6]string{"a","b","c","d","e","f"}
+                0   1   2   3   4   5
+dus het gaat om CDEF
+

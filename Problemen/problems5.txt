@@ -1,0 +1,14 @@
+Chapter 5
+
+Wat is de uitkomst van deze code:
+i := 10
+if i > 10 {
+  fmt.Println("Big")
+} else {
+  fmt.Println("Small")
+}
+
+De uitkomst is "Small", dit omdat i exact 10 is en pas vanaf 11 valt onder Big. 
+
+Opdracht:
+Write a program that prints out all the numbers evenly divisible by 3 between 1 and 100. (3, 6, 9, etc.)
