@@ -1,0 +1,22 @@
+-----------------
+Chapter 2
+- Whitespace:
+Whitespace zijn characters die worden gebruikt als ruimte tussen verschillende elementen, zoals dus een spatie. 
+Ongeacht de naam, whitespace kan van alles zijn en gaat gewoon over horizontale en verticale spacing tussen elementen
+
+- Comments
+Een comment kan gemaakt worden door // en /* 
+
+Verschil tussen deze is dat // slechts 1 regel als comment beschouwd en /* voor meerdere gebruikt kan worden.
+
+Fmt package:
+Deze beginnen dus met fmt, zoals bijvoorbeeld fmt.Println()
+
+Exit:
+Allereerst heb je de os package nodig, oftewel import "os"
+vervolgens kan je alles wat in de package zit gebruiken in je code, bijvoorbeeld dus "Exit"
+
+Program:
+var name = "Martijn"
+
+fmt.Println("Hello my name is", name)

@@ -1,0 +1,28 @@
+Integers:
+Deze worden opgeslagen in een base-2 systeem, oftewel een 1 en een 0. Wij werken met een base-10 systeem, uiteindelijk gaan we gewoon naar 2 cijfers, dan 3 etc tot we uiteindelijk tot ver in de miljoenen of miljarden zitten.
+
+Largest 8 digit number:
+1111 1111
+
+1 2 4 8 16 32 64 128
+
+1 + 2 + 4 + 8 + 16 + 32 + 64 + 128 = 255
+
+dus 11111111 = 255
+
+
+
+var number = 32132 * 42452
+fmt.Println(number)
+
+Wat is een string
+Een string is gewoon een stuk tekst, dat natuurlijk in lengte kan variëren op basis van wat er nodig is. 
+
+Voorbeelden:
+"Martijn" "Mijn naam is Martijn" "Ik ben 18 jaar oud"
+
+(true && false) || (false && true) || !(false && false)
+
+     false      ||      false      ||      true 
+
+     
