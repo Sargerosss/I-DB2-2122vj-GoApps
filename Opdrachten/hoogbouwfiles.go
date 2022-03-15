@@ -27,8 +27,9 @@ func file(path string) {
 	f, err := os.Open(path)
 	checkErr(err)
 
-	b1 := make([]byte, 7)
+	b1 := make([]byte, 11)
 	n1, err := f.Read(b1)
 	checkErr(err)
 	fmt.Printf("%d bytes: %s\n", n1, string(b1[:n1]))
+
 }
