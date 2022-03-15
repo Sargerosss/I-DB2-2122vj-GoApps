@@ -5,15 +5,17 @@ import (
 )
 
 func main() {
-	alarm()
+	var number int
+	fmt.Scanln(&number)
+	alarm(number)
 }
 
-const number = 5
-
-func alarm() {
+func alarm(number int) {
 	i := 0
-	for i <= number {
-		fmt.Println("Alarm", i, "!")
-		i += 1
+	if number > 0 {
+		for i <= number {
+			fmt.Println("Alarm", i, "!")
+			i += 1
+		}
 	}
 }
