@@ -7,6 +7,13 @@ import (
 	"strings"
 )
 
+var alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+var numbers = "1234567890"
+var specialChar = ",./';[]=-_+{}?><|`~"
+var AZ09 = alphabet + numbers
+var AZSC = alphabet + specialChar
+var allChar = alphabet + numbers + specialChar
+
 // Soort library voor het ondersteunen van het printen van lines
 func main() {
 	fmt.Println("Password generator & Password strength checker")
@@ -29,26 +36,22 @@ func main() {
 }
 
 func passwordGen(number int) string {
-	var alphabet = "abcdefghjklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	var numbers = "1234567890"
-	var specialChar = ",./';[]=-_+{}?><|`~"
-	var characterSet = []rune(specialChar + alphabet + numbers)
+	var lowercase = "abcdefghijklmnopqrstuvwxyz"
+	var specialChar = ",./';[]=-_+{}?><|`~:!@#$%^&*()"
+	var characterSet = []rune(uppercase + specialChar + lowercase + numbers)
 
 	s := make([]rune, number)
 	for i := range s {
 		s[i] = characterSet[rand.Intn(len(characterSet))]
 	}
+	passwordCheck((string(s)))
 	return string(s)
 
 }
 
 func passwordCheck(password string) {
-	var alphabet = "abcdefghjklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	var numbers = "1234567890"
-	var specialChar = ",./';[]=-_+{}?><|`~"
-	var AZ09 = alphabet + numbers
-	var AZSC = alphabet + specialChar
-	var allChar = alphabet + numbers + specialChar
 	len := 0
 	for range password {
 		len++
@@ -62,5 +65,6 @@ func passwordCheck(password string) {
 		fmt.Println("Password strength: Weak")
 	} else {
 		fmt.Println("Password couldn't be checked. Try again")
+		passwordGen(len)
 	}
 }
