@@ -38,8 +38,10 @@ func resizeImage(width, height int, path string) {
 		log.Fatalf("failed to open image: %v", err)
 	}
 	dstImage128 := imaging.Resize(src, width, height, imaging.Lanczos)
-
-	err = imaging.Save(dstImage128, "resized_image.jpg")
+	fmt.Println("File name to save")
+	var name string
+	fmt.Scanln(&name)
+	err = imaging.Save(dstImage128, name)
 	if err != nil {
 		log.Fatalf("failed to save image: %v", err)
 	}
