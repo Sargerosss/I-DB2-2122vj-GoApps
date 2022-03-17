@@ -12,26 +12,18 @@ func main() {
 	var dist = 1000
 	var hrs = 4
 	Saturnus(dist, hrs)
-	defer fmt.Scanln(&planet)
+	fmt.Scanln(&planet)
 	if planet == "Saturnus" {
-		var dist = 100
-		var hrs = 2
-		Saturnus(dist, hrs)
-	} else if planet == "Jupiter" {
-		fmt.Println("JUPITER")
-	}
-	Jupiter(float64(dist), float64(hrs))
-
-	if "a" == "a" {
-
-	} else if "b" == "b" {
-
-	} else if planet == "Saturnus" {
 		var saturnus = "Saturnus"
 		var saturnusD = 1500
 		var saturnusH = 5
 		var saturnusS = saturnusD / saturnusH
 		fmt.Println(saturnus, saturnusS)
+
+	} else if planet == "Jupiter" {
+		fmt.Println("JUPITER")
+		Jupiter(float64(dist), float64(hrs))
+
 	}
 }
 
