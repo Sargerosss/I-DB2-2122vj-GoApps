@@ -27,7 +27,7 @@ func main() {
 		fmt.Scanln(&height)
 		resizeImage(width, height, path)
 	} else if option == 2 {
-		fmt.Println("TBC")
+		fmt.Println("Please choose an option:")
 	}
 
 }
