@@ -1,6 +1,6 @@
 Hallo Martijn,
 
-Vergeet vandaag niet Future Games Show
+VERGEET NIET DIT OP TE SLAAN OP GIT
 
 BELANGRIJKE INFO
 TER
@@ -12,3 +12,10 @@ HET
 IS
 SUPER
 BELANGRIJK
+
+
+
+
+
+
+LEEGTE

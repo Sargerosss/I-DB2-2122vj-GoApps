@@ -37,65 +37,63 @@ func main() {
 		fmt.Println("3. Rotate (multiple options)")
 		fmt.Println("4. Sharpen image")
 		fmt.Scanln(&option2)
-
-		if option == 1 {
-			fmt.Println("Please choose an image")
-			var image string
-			fmt.Scanln(&image)
-			fmt.Println("Please choose a percentage")
-			var percent float64
-			fmt.Scanln(&percent)
-			ChangeContrast(image, percent)
-
-		} else if option == 2 {
-			fmt.Println("Please choose an image")
-			var image string
-			fmt.Scanln(&image)
-			fmt.Println("Please choose a percentage")
-			var percent float64
-			fmt.Scanln(&percent)
-			ChangeBrightness(image, percent)
-		} else if option == 3 {
-			fmt.Println("Please choose an option:")
-			fmt.Println("1. Rotate image (90)")
-			fmt.Println("2. Rotate image (180)")
-			fmt.Println("3. Rotate image (270)")
-
-			fmt.Scanln(&options)
-
-			if options == 1 {
-				fmt.Println("Rotate image (90)")
-				fmt.Println("Please choose an image to rotate")
-				var img string
-				fmt.Scanln(&img)
-				IMGRotate90(img)
-
-			} else if options == 2 {
-				fmt.Println("Rotate image (180)")
-				fmt.Println("Please choose an image to rotate")
-				var img string
-				fmt.Scanln(&img)
-				IMGRotate180(img)
-
-			} else if options == 3 {
-				fmt.Println("Rotate image (270)")
-				fmt.Println("Please choose an image to rotate")
-				var img string
-				fmt.Scanln(&img)
-				IMGRotate270(img)
-			} else if options == 4 {
-				fmt.Println("Sharpen image")
-				fmt.Println("Please choose an image to sharpen")
-				var image string
-				fmt.Scanln(&image)
-				fmt.Println("Please choose how much you want to sharpen it")
-				var sharpen float64
-				fmt.Scanln(&sharpen)
-				SharpenImage(image, sharpen)
-			}
-		}
 	}
+	if option2 == 1 {
+		fmt.Println("Please choose an image")
+		var image string
+		fmt.Scanln(&image)
+		fmt.Println("Please choose a percentage")
+		var percent float64
+		fmt.Scanln(&percent)
+		ChangeContrast(image, percent)
 
+	} else if option2 == 2 {
+		fmt.Println("Please choose an image")
+		var image string
+		fmt.Scanln(&image)
+		fmt.Println("Please choose a percentage")
+		var percent float64
+		fmt.Scanln(&percent)
+		ChangeBrightness(image, percent)
+	} else if option2 == 3 {
+		fmt.Println("Please choose an option:")
+		fmt.Println("1. Rotate image (90)")
+		fmt.Println("2. Rotate image (180)")
+		fmt.Println("3. Rotate image (270)")
+
+		fmt.Scanln(&options)
+
+	}
+	if options == 1 {
+		fmt.Println("Rotate image (90)")
+		fmt.Println("Please choose an image to rotate")
+		var img string
+		fmt.Scanln(&img)
+		IMGRotate90(img)
+
+	} else if options == 2 {
+		fmt.Println("Rotate image (180)")
+		fmt.Println("Please choose an image to rotate")
+		var img string
+		fmt.Scanln(&img)
+		IMGRotate180(img)
+
+	} else if options == 3 {
+		fmt.Println("Rotate image (270)")
+		fmt.Println("Please choose an image to rotate")
+		var img string
+		fmt.Scanln(&img)
+		IMGRotate270(img)
+	} else if options == 4 {
+		fmt.Println("Sharpen image")
+		fmt.Println("Please choose an image to sharpen")
+		var image string
+		fmt.Scanln(&image)
+		fmt.Println("Please choose how much you want to sharpen it")
+		var sharpen float64
+		fmt.Scanln(&sharpen)
+		SharpenImage(image, sharpen)
+	}
 }
 
 func resizeImage(width, height int, path string) {
