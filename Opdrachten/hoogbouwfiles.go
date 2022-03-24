@@ -21,10 +21,10 @@ func main() {
 }
 
 func file(path string) {
-	data, err := os.ReadFile(path)
-	checkErr(err)
+	//	data, err := os.ReadFile(path)
+	//checkErr(err)
+	//fmt.Print(string(data))
 
-	fmt.Print(string(data))
 	f, err := os.Open(path)
 	checkErr(err)
 
@@ -35,5 +35,14 @@ func file(path string) {
 	gebouwA := string(b1[:n1])
 	fmt.Println(gebouwA)
 
+	o2, err := f.Seek(8, 0)
+	checkErr(err)
+	b2 := make([]byte, 12)
+	n2, err := f.Read(b2)
+	checkErr(err)
+
+	fmt.Println(o2)
+	hoogteA := string(b2[:n2])
+	fmt.Println(hoogteA)
 	//hoogteA := make([]byte)
 }
