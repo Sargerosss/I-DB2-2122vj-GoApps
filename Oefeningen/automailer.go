@@ -1,6 +1,5 @@
 package main
 
-// Standaard package die nodig is
 import (
 	"fmt"
 	"net/smtp"
@@ -13,50 +12,61 @@ func check(e error) {
 	}
 }
 
-// Soort library voor het ondersteunen van het printen van lines
 func main() {
 	autoMailer()
 }
 
 func autoMailer() {
 	fmt.Println("Automailer")
+	// For loop + variable to keep things neat
 	count := 10
 	for i := 0; i < count; i++ {
 		fmt.Print("-")
 	}
 	fmt.Println("")
 	fmt.Println("Syntax:")
-	fmt.Println("go run automailer.go <text file> <email to> <email from>")
-
+	fmt.Println("go run automailer.go <text file> <email to> <email from>") // Syntax
+	// For loop to keep things neat
 	for i := 0; i < count; i++ {
 		fmt.Print("-")
 	}
+	// Commandline arguments
 	args := os.Args
-
+	// Index1
 	file := args[1]
+	// Index2
 	to := args[2]
+	//Index3
 	from := args[3]
 
 	// Sender data
 	fromEmail := from
 	password := "xopiamlikdnknukg"
 
+	// Receiver data
 	toEmail := []string{to}
 
+	// SMTP data
 	smtpHost := "smtp.gmail.com"
 	smtpPort := "587"
-	data, errors := os.ReadFile(file)
 
+	// Email body
+	data, errors := os.ReadFile(file)
 	check(errors)
+
+	// Convert to []byte
 	message := []byte(data)
 
+	// Auth for SENDER
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 
+	// Send mail
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, fromEmail, toEmail, message)
+	// Check error
 	if err != nil {
-		fmt.Println(err)
-		return
+		check(err)
 	}
+	// Finish email
 	fmt.Println("")
 	fmt.Println("Email Sent Successfully!")
 }
