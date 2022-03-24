@@ -17,7 +17,7 @@ func main() {
 
 	fmt.Println("Photo editor")
 	fmt.Println("1. Resize image")
-	fmt.Println("2. Change image (color, gamma, contrast)")
+	fmt.Println("2. Change image (brightness, contrast, rotate)")
 	fmt.Scanln(&option)
 
 	if option == 1 {
