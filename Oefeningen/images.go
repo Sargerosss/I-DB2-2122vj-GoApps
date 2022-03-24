@@ -15,9 +15,11 @@ func main() {
 
 	var option2 int
 
+	var options int
+
 	fmt.Println("Photo editor")
 	fmt.Println("1. Resize image")
-	fmt.Println("2. Change image (brightness, contrast, rotate)")
+	fmt.Println("2. Change image (brightness, contrast, rotate, sharpen)")
 	fmt.Scanln(&option)
 
 	if option == 1 {
@@ -33,6 +35,7 @@ func main() {
 		fmt.Println("1. Change contrast")
 		fmt.Println("2. Change brightness")
 		fmt.Println("3. Rotate (multiple options)")
+		fmt.Println("4. Sharpen image")
 		fmt.Scanln(&option2)
 
 		if option == 1 {
@@ -57,7 +60,7 @@ func main() {
 			fmt.Println("1. Rotate image (90)")
 			fmt.Println("2. Rotate image (180)")
 			fmt.Println("3. Rotate image (270)")
-			var options int
+
 			fmt.Scanln(&options)
 
 			if options == 1 {
@@ -80,6 +83,15 @@ func main() {
 				var img string
 				fmt.Scanln(&img)
 				IMGRotate270(img)
+			} else if options == 4 {
+				fmt.Println("Sharpen image")
+				fmt.Println("Please choose an image to sharpen")
+				var image string
+				fmt.Scanln(&image)
+				fmt.Println("Please choose how much you want to sharpen it")
+				var sharpen float64
+				fmt.Scanln(&sharpen)
+				SharpenImage(image, sharpen)
 			}
 		}
 	}
@@ -172,6 +184,22 @@ func IMGRotate270(img string) {
 		log.Fatalf("failed to open image: %v", err)
 	}
 	dstImage := imaging.Rotate270(src)
+	fmt.Println("File name to save")
+	var fn string
+	fmt.Scanln(&fn)
+	err = imaging.Save(dstImage, fn)
+	if err != nil {
+		log.Fatalf("failed to save image: %v", err)
+	}
+	defer fmt.Println("Image added")
+}
+
+func SharpenImage(img string, percentage float64) {
+	src, err := imaging.Open(img)
+	if err != nil {
+		log.Fatalf("failed to open image: %v", err)
+	}
+	dstImage := imaging.Sharpen(src, percentage)
 	fmt.Println("File name to save")
 	var fn string
 	fmt.Scanln(&fn)
