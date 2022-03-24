@@ -32,8 +32,10 @@ func imageCompressor(path string) {
 	width, height := Scale(original.Bounds(), scale)
 
 	img := resize.Resize(uint(width), uint(height), original, resize.Lanczos3)
-
-	resized, err := os.Create("resized.jpg")
+	fmt.Println("Choose a filename to save it as")
+	var filename string
+	fmt.Scanln(&filename)
+	resized, err := os.Create(filename)
 	if err != nil {
 		fmt.Println("Error creating file: ", err)
 		os.Exit(1)
@@ -42,7 +44,7 @@ func imageCompressor(path string) {
 
 	// write new image to file
 	jpeg.Encode(resized, img, nil)
-	fmt.Println("Succesfully added resized.jpg")
+	fmt.Println("Succesfully added", filename)
 }
 
 func Scale(image image.Rectangle, scale float64) (width, height uint) {
