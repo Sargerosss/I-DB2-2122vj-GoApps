@@ -13,10 +13,24 @@ func check(e error) {
 }
 
 func main() {
-	autoMailer()
+	fmt.Println("Please choose an option")
+	fmt.Println("1. Start the automailer, I know the syntax")
+	fmt.Println("2. Please show me the syntax, and then start the automailer")
+
+	var option int
+	fmt.Scanln(&option)
+
+	if option == 1 {
+		autoMailer()
+	} else if option == 2 {
+		autoMailerSyntax()
+	} else {
+		fmt.Println("Invalid option. Restarting program")
+		main()
+	}
 }
 
-func autoMailer() {
+func autoMailerSyntax() {
 	fmt.Println("Automailer")
 	// For loop + variable to keep things neat
 	count := 10
@@ -30,6 +44,10 @@ func autoMailer() {
 	for i := 0; i < count; i++ {
 		fmt.Print("-")
 	}
+	defer autoMailer()
+}
+func autoMailer() {
+
 	// Commandline arguments
 	args := os.Args
 	// Index1
