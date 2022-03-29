@@ -13,21 +13,7 @@ func check(e error) {
 }
 
 func main() {
-	fmt.Println("Please choose an option")
-	fmt.Println("1. Start the automailer, I know the syntax")
-	fmt.Println("2. Please show me the syntax, and then start the automailer")
-
-	var option int
-	fmt.Scanln(&option)
-
-	if option == 1 {
-		autoMailer()
-	} else if option == 2 {
-		autoMailerSyntax()
-	} else {
-		fmt.Println("Invalid option. Restarting program")
-		main()
-	}
+	autoMailer()
 }
 
 func autoMailerSyntax() {
