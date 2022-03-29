@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Check error
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -13,25 +14,13 @@ func check(e error) {
 }
 
 func main() {
+	// Syntax
+	fmt.Println("Syntax: go run automailer.go <text file> <email from> <email to>")
+
+	// Call function
 	autoMailer()
 }
 
-func autoMailerSyntax() {
-	fmt.Println("Automailer")
-	// For loop + variable to keep things neat
-	count := 10
-	for i := 0; i < count; i++ {
-		fmt.Print("-")
-	}
-	fmt.Println("")
-	fmt.Println("Syntax:")
-	fmt.Println("go run automailer.go <text file> <email to> <email from>") // Syntax
-	// For loop to keep things neat
-	for i := 0; i < count; i++ {
-		fmt.Print("-")
-	}
-	defer autoMailer()
-}
 func autoMailer() {
 
 	// Commandline arguments
