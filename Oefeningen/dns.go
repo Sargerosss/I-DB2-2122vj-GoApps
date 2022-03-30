@@ -9,10 +9,21 @@ import (
 // Soort library voor het ondersteunen van het printen van lines
 func main() {
 	fmt.Println("Domain Name System")
-	var ip string
-	fmt.Scanln(&ip)
+
 	//lookUpDNS(ip)
-	lookUpHost(ip)
+	fmt.Println("Choose option")
+	var option int
+	if option == 1 {
+		var host string
+		fmt.Println("Enter IP")
+		fmt.Scanln(&host)
+		lookUpHost(host)
+	} else if option == 2 {
+		var host string
+		fmt.Println("Enter DNS")
+		fmt.Scanln(&host)
+		lookUpDNS(host)
+	}
 }
 
 func lookUpDNS(host string) {
