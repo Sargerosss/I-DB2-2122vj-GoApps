@@ -5,16 +5,18 @@ Technieken:
 - Database met Go?
 
 Mogelijke ideeën:
-- Belangrijk het weer te zien in een overzicht
-- Wat als ik met de API van discord wat kan regelen, misschien een server maken?
-- Zoals in de Workshop laten zien > Git(hub) API opvragen en filteren
-- Teams API en hiermee werken?
-- Iets gaan doen voor de Proftaak (Licht, geluid?)
-- Go programma laten draaien op Raspberry Pi?
-- Connectie met Arduino? en lampjes aansturen?
-- Eerdere Proftaak opnieuw doen maar met Go?
-- Meer met bestanden lezen, schrijven etc
-- Bot maken?
+1) Overzicht van het weer (Weer API)
+2) Wat als ik met de API van discord wat kan regelen, misschien een server maken?
+3) Go programma laten draaien op Raspberry Pi?
+4) Connectie met Arduino? en lampjes aansturen?
+5) Eerdere Proftaak opnieuw doen maar met Go?
+6) Meer met bestanden lezen, schrijven etc
+7) Bot maken? (Twitter, Discord)
+8) Game maken?
+9) Werken met Database
+10) Werken met Websockets
+11) Currency omzetten op basis van realtime prijzen (API)
+12) Go applicatie laten draaien in een Docker container?
 
 Arduino:
 go-serial package (en dus aansluiten op COM poort)
@@ -45,3 +47,8 @@ Go Websockets?
 Youtube Websocket? 
 
 Currency machine? Inclusief up-to-date currency pricing?
+
+Afgevallen ideeën
+3) Zoals in de Workshop laten zien > Git(hub) API opvragen en filteren
+4) Teams API en hiermee werken?
+5) Iets gaan doen voor de Proftaak (Licht, geluid?)
