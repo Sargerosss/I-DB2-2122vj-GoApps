@@ -2,6 +2,7 @@ Technieken:
 - GUI maken in Go
 - Werken met API (en vanuit de GUI dus de API opvragen en netjes neerzetten)
 - Bestanden lezen/schrijven
+- Database met Go?
 
 Mogelijke ideeën:
 - Belangrijk het weer te zien in een overzicht
@@ -13,3 +14,20 @@ Mogelijke ideeën:
 - Connectie met Arduino? en lampjes aansturen?
 - Eerdere Proftaak opnieuw doen maar met Go?
 - Meer met bestanden lezen, schrijven etc
+
+Arduino:
+go-serial package (en dus aansluiten op COM poort)
+
+Raspberry:
+Download Go
+Maak bestand aan en programmeer op het OS
+Run het met Terminal
+
+https://www.admfactory.com/flowing-led-on-raspberrypi-using-golang/ 
+
+API:
+Vergeet API key niet (indien nodig)
+Zoek op over connectie maken
+
+Database:
+https://tutorialedge.net/golang/golang-mysql-tutorial/
