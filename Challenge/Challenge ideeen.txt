@@ -36,3 +36,7 @@ https://tutorialedge.net/golang/golang-mysql-tutorial/
 Bot:
 Discord bot?
 Twitter bot?
+
+Go applicatie laten draaien in een container?
+
+Game maken?
