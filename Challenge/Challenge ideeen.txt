@@ -40,3 +40,8 @@ Twitter bot?
 Go applicatie laten draaien in een container?
 
 Game maken?
+
+Go Websockets?
+Youtube Websocket? 
+
+Currency machine? Inclusief up-to-date currency pricing?
