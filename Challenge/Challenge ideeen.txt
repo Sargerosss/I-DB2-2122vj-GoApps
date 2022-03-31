@@ -1,6 +1,7 @@
 Technieken:
 - GUI maken in Go
 - Werken met API (en vanuit de GUI dus de API opvragen en netjes neerzetten)
+- Bestanden lezen/schrijven
 
 Mogelijke ideeën:
 - Belangrijk het weer te zien in een overzicht
