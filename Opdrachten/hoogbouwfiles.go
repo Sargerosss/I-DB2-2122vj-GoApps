@@ -14,18 +14,21 @@ func checkErr(e error) {
 
 // Soort library voor het ondersteunen van het printen van lines
 func main() {
-	var filePath string
-	fmt.Println("Choose file")
-	fmt.Scanln(&filePath)
+
+	args := os.Args
+	filePath := args[1]
 	file(filePath)
 }
 
 func file(path string) {
-	//	data, err := os.ReadFile(path)
+	// Read full file (and print all content to console)
+	//data, err := os.ReadFile(path)
 	//checkErr(err)
 	//fmt.Print(string(data))
 
+	// Open file
 	f, err := os.Open(path)
+	// Check error
 	checkErr(err)
 
 	b1 := make([]byte, 7)

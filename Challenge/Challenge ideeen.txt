@@ -3,18 +3,12 @@ Technieken:
 - Werken met API (en vanuit de GUI dus de API opvragen en netjes neerzetten)
 
 Mogelijke ideeën:
-Richting de zomer momenteel
-Belangrijk het weer te zien in een overzicht
-
-Ik gebruik veel discord
-Wat als ik met de API van discord wat kan regelen, misschien een server maken?
-
-Zoals in de Workshop laten zien > Git(hub) API opvragen en filteren
-
-Teams API en hiermee werken?
-
-*WACHTEN OP VOLGENDE WEEK EN IETS VOOR PROFTAAK DOEN?*
-
-Go programma laten draaien op Raspberry Pi????
-
-Connectie met Arduino? en lampjes aansturen?
+- Belangrijk het weer te zien in een overzicht
+- Wat als ik met de API van discord wat kan regelen, misschien een server maken?
+- Zoals in de Workshop laten zien > Git(hub) API opvragen en filteren
+- Teams API en hiermee werken?
+- Iets gaan doen voor de Proftaak (Licht, geluid?)
+- Go programma laten draaien op Raspberry Pi?
+- Connectie met Arduino? en lampjes aansturen?
+- Eerdere Proftaak opnieuw doen maar met Go?
+- Meer met bestanden lezen, schrijven etc
