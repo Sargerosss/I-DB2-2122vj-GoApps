@@ -1,0 +1,21 @@
+Concept:
+- Go code *zou* een bericht naar wens moeten sturen naar de serial monitor
+- De arduino neemt het dan over door het te lezen en de arduino code opgegeven uit te voeren
+
+Probleem:
+- Er wordt niks gestuurd naar de serial monitor (en er kan dus niks worden gelezen)
+
+Geprobeerd:
+- Aanpassingen in Go code (verschillende packages, verschillende berichten gestuurd)
+- Aanpassingen in Arduino code (niet checken of hetgeen wat wij sturen binnenkomt maar of er IETS binnenkomt)
+
+Debugging (Go code):
+- Elke stap in Go code hebben we gecontroleerd met een print, alles wordt elke keer uitgevoerd
+
+Meeste voortgang:
+- Wat rare tekens in de serial monitor, maar die stap waren we al snel kwijt door weer nieuwe pogingen.
+
+Arduino code:
+- De arduino code is vergeleken met mijn eerdere projecten, waarvan ik weet dat het op die manier werkt
+- Ik heb exact dezelfde stappen gezet daar als die ik nu heb gezet.
+(Ook gecontroleerd of het LED lampje wel aan kan gaan door de Arduino Code, en dit werkte)
