@@ -31,7 +31,7 @@ func serialCommunication(arg string) {
 	for _, port := range ports {
 		fmt.Printf("Found port: %v\n", port)
 	}
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 	mode := &serial.Mode{
 		BaudRate: 9600,
 		Parity:   serial.NoParity,
@@ -39,13 +39,12 @@ func serialCommunication(arg string) {
 		StopBits: serial.OneStopBit,
 	}
 	fmt.Println("Baudrate check")
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 
 	port, err := serial.Open(ports[0], mode)
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Almost sending")
 	time.Sleep(2 * time.Second)
 
 	script1(port, arg)
@@ -54,20 +53,26 @@ func serialCommunication(arg string) {
 }
 
 func script1(port serial.Port, arg string) {
-	if arg == "golang" {
-		n, err := port.Write([]byte("Golang"))
+	if arg == "Golang" {
+		n, err := port.Write([]byte(arg))
 		if err != nil {
 			log.Fatal(err)
 		}
 		fmt.Printf("Sent %v bytes\n", n)
-	} else if arg == "arduino" {
-		n2, err := port.Write([]byte("Arduino"))
+	} else if arg == "Arduino" {
+		n2, err := port.Write([]byte(arg))
 		if err != nil {
 			log.Fatal(err)
 		}
 		fmt.Printf("Sent %v bytes\n", n2)
-	} else if arg == "hello" {
-		n3, err := port.Write([]byte("Hello"))
+	} else if arg == "Hello" {
+		n3, err := port.Write([]byte(arg))
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("Sent %v bytes\n", n3)
+	} else if arg == "ABCDEF" {
+		n3, err := port.Write([]byte(arg))
 		if err != nil {
 			log.Fatal(err)
 		}
