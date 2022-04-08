@@ -28,7 +28,7 @@ func main() {
 	defer port.Close()
 
 	// Write 4 bytes to the port.
-	n, err := port.Write([]byte("1"))
+	n, err := port.Write([]byte("1\n\r"))
 	fmt.Println("Write: Check")
 	if err != nil {
 		log.Fatalf("port.Write: %v", err)
