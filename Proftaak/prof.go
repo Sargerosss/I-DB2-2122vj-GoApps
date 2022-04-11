@@ -1,5 +1,9 @@
 package main
 
+// GENERAL CONCEPT
+// When using this script, it will send a message to the Arduino connected to the Serial Port (COM(X)).
+// Then the Arduino takes it over and executes his own code
+
 // Imports to use
 import (
 	"fmt"
@@ -35,6 +39,7 @@ func serialCommunication(arg string) {
 	// Check ports that are connected/used
 	ports, err := serial.GetPortsList()
 	checkErr(err)
+
 	// If no ports found, error
 	if len(ports) == 0 {
 		log.Fatal("No serial ports found!")
@@ -43,8 +48,10 @@ func serialCommunication(arg string) {
 	for _, port := range ports {
 		fmt.Printf("Found port: %v\n", port)
 	}
+
 	// Wait 1 second
 	time.Sleep(1 * time.Second)
+
 	// Settings to use, 9600 baudrate (IMPORTANT)
 	mode := &serial.Mode{
 		BaudRate: 9600,
@@ -54,13 +61,16 @@ func serialCommunication(arg string) {
 	}
 	// Small check
 	fmt.Println("Baudrate check")
+
 	// Wait 1 second
 	time.Sleep(1 * time.Second)
 
 	// Start communication, open the port with settings
 	port, err := serial.Open(ports[0], mode)
+
 	// Check error
 	checkErr(err)
+
 	// Wait 2 seconds
 	time.Sleep(2 * time.Second)
 
@@ -81,6 +91,7 @@ func script1(port serial.Port, arg string) {
 		checkErr(err)
 		// Print bytes sent
 		fmt.Printf("Sent %v bytes\n", n)
+
 		// Check arg = Arduino
 	} else if arg == "Arduino" {
 		// Write Arduino to the Arduino
@@ -89,6 +100,7 @@ func script1(port serial.Port, arg string) {
 		checkErr(err)
 		// Print bytes sent
 		fmt.Printf("Sent %v bytes\n", n2)
+
 		// Check arg = Hello
 	} else if arg == "Hello" {
 		// Write Hello to the Arduino
@@ -97,6 +109,7 @@ func script1(port serial.Port, arg string) {
 		checkErr(err)
 		// Print bytes sent
 		fmt.Printf("Sent %v bytes\n", n3)
+
 		// Check arg = ABCDEF
 	} else if arg == "ABCDEF" {
 		// Write ABCDEF to the Arduino
