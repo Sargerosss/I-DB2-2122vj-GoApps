@@ -1,23 +1,5 @@
-Benodigdheden:
-- Display vorm
-> Welke mogelijkheden
-- Wires (Male to Male)
-> Hoeveel wires (of hoeveel zakjes)
-- Resistors
-> Welke nodig
-
-- Raspberry Pi (Verander OS indien nodig)
-- Go script
-- Editor (op Raspberry Pi)
-- Breadboard
-
-Uitbreidingen:
-Welke uitbreiding, keuze maken, of meerdere kiezen, overzicht met mogelijkheden
-
-Mogelijke uitbreidingen:
-- Authenticatie (Users en controle erop)
-- Database?
-- Meer onderdelen (bijvoorbeeld met button werken) aansluiten op breadboard
-- Arduino Uno koppelen
-https://gyazo.com/78049faa5933e5d2c1835a81046fe3b1
-ISSD omtrent display
+Benodigdheden voor Cybersecurity challenge
+ - Docker?
+ - Server?
+ - Golang script?
+ - 

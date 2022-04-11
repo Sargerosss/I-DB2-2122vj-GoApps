@@ -1,0 +1,12 @@
+Thema:
+Cybersecurity
+
+Eisen:
+- Techniek
+- Applicatie 
+- Organisatie
+
+Ideeën:
+- Hackbare server maken en zelf hacken via een geschreven applicatie (hierop ook dus analyses loslaten en dus organisatie) 
+- CTF Docker machine maken om die te capturen via een Golang script
+
