@@ -3,9 +3,8 @@ package main
 // Standaard package die nodig is
 import (
 	"fmt"
-	"log"
 
-	"github.com/cavaliercoder/grab"
+	"github.com/paij0se/lmmp3"
 )
 
 // Soort library voor het ondersteunen van het printen van lines
@@ -15,11 +14,7 @@ func main() {
 }
 
 func grabFile() {
-	resp, err := grab.Get("C:/Users/HP/Desktop/PROFTAAK S2/FG7M2S2GF5VAQ9Q/BeatWrite/data", "https://github.com/Sargerosss/I-DB2-2122vj-GoApps/blob/main/hw.mp3")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Added file", resp.Filename)
+	lmmp3.DownloadAndConvert("https://www.youtube.com/watch?v=829pvBHyG6I")
 }
 
 /*
