@@ -2,21 +2,77 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 )
 
-func main() {
+var db *sql.DB
+
+// Table names:
+// 1) Username
+// 2) Password (Hashed)
+// 3)
+
+type User struct {
+	Username        string
+	Password        string
+	Permissionlevel int
 }
 
-func dbConn() bool {
-	// after the / is db name
-	db, err := sql.Open("mysql", "username:password@tcp(127.0.0.1:3306)/test")
+func main() {
 
-	if err != nil {
-		panic(err.Error())
-		return false
-	} else {
-		return true
+}
+
+func dbConn() {
+
+	godotenv.Load()
+	cfg := mysql.Config{
+		User:   os.Getenv("DBUSER"),
+		Passwd: os.Getenv("DBPASS"),
+		Net:    "tcp",
+		Addr:   "(IP):3306",
+		DBName: "users",
 	}
-	defer db.Close()
 
+	var err error
+	db, err = sql.Open("mysql", cfg.FormatDSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Connected!")
+
+}
+
+func addUser(user User) (string, error) {
+	result, err := db.Exec("INSERT INTO users (username, password, permission) VALUES (?, ?, ?)", user.Username, user.Password, user.Permissionlevel)
+	if err != nil {
+		return "", fmt.Errorf("addAlbum: %v", err)
+	}
+	return user.Username, nil
+}
+
+func removeUser() {}
+
+func editUser() {}
+
+func readAllUsers() {}
+
+func login(user User) {
+	user.Username = os.Args[1]
+	user.Password = os.Args[2]
+
+	rows, err := db.Query("SELECT Permission FROM users WHERE username = ?", user.Username)
+
+	for rows.Next() {
+		err = rows.Scan(user.Permissionlevel)
+		if err != nil {
+			panic(err.Error())
+		}
+		user.Permissionlevel, err = fmt.Println(user.Permissionlevel)
+	}
 }

@@ -12,6 +12,7 @@ require (
 	github.com/dop251/goja v0.0.0-20211211112501-fb27c91c26ed // indirect
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/jacobsa/go-serial v0.0.0-20180131005756-15cf729a72d4 // indirect
+	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/kkdai/youtube/v2 v2.7.8 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mitchellh/colorstring v0.0.0-20190213212951-d06e56a500db // indirect
@@ -26,6 +27,7 @@ require (
 )
 
 require (
+	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gordonklaus/portaudio v0.0.0-20220320131553-cc649ad523c1
 	github.com/mikepb/go-serial v0.0.0-20201030162908-19fa9bf168fc
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
