@@ -1,12 +1,13 @@
-Thema:
-Cybersecurity
+Zoals hierboven al beschreven is, gaat het dus een combinatie van de laatste 2 opties worden:
+- Malware kunnen controleren (via API) via een opgegeven link;
+- Eigen applicatie met inlogsysteem via CLI en gekoppeld aan een Database (waarna daarna toegang verleend wordt tot de applicatie);
 
-Eisen:
-- Techniek
-- Applicatie 
-- Organisatie
+Hiermee wil ik dus eerst een inlogsysteem hebben, deze zal via command line arguments controleren op de gegeven arguments, en deze vergelijken met de database. 
+Vervolgens krijgt de gebruiker toegang tot meerdere opties om uit te kiezen. 
+Van het controleren van een link tot aan wat er allemaal nog verder mogelijk is (hierbij ook het combineren van meerdere packages), 
+om uiteindelijk uit te komen op een volledige Cybersecurity tool, volledig beveiligd voor mijzelf. 
 
-Ideeën:
-- Hackbare server maken en zelf hacken via een geschreven applicatie (hierop ook dus analyses loslaten en dus organisatie) 
-- CTF Docker machine maken om die te capturen via een Golang script
-
+Uitwerking:
+- Welke APIs
+- Welke features
+- Database server
