@@ -46,3 +46,6 @@ func checkUser(name string, password string) bool {
 	}
 
 }
+
+
+https://www.sohamkamani.com/golang/password-authentication-and-storage/
