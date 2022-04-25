@@ -12,6 +12,7 @@ func main() {
 
 	//lookUpDNS(ip)
 	fmt.Println("Choose option")
+	fmt.Println("1 or 2")
 	var option int
 	if option == 1 {
 		var host string
