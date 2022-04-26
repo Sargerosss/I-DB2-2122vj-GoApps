@@ -70,7 +70,7 @@ func serialCommunicationArduino() {
 // Takes in port as argument
 func script2(port serial.Port) {
 	// Write 1 to Arduino
-	n, err := port.Write([]byte("1"))
+	n, err := port.Write([]byte("100;1"))
 	checkError(err)
 	// Print bytes sent
 	fmt.Printf("Sent %v bytes\n", n)
