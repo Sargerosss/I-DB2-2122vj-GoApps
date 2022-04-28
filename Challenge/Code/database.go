@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/go-sql-driver/mysql"
@@ -17,6 +16,10 @@ var db *sql.DB
 // 1) Username
 // 2) Password (Hashed)
 // 3) Permission
+
+// DATABASE SETUP
+// https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04
+// https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-20-04
 
 type User struct {
 	Username        string
@@ -41,64 +44,56 @@ func dbConn() {
 
 	var err error
 	db, err = sql.Open("mysql", cfg.FormatDSN())
-	if err != nil {
-		log.Fatal(err)
-	}
+	checkError(err)
 
 	fmt.Println("Connected!")
 }
 
 func checkError(err error) {
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
 }
 
-func readAllUsers() ([]User, error) {
-	var users []User
-
-	rows, err := db.Query("SELECT * FROM Users")
-	if err != nil {
-		return nil, fmt.Errorf("All users: %v", err)
-	}
-	defer rows.Close()
-	for rows.Next() {
-		var user User
-		if err := rows.Scan(&user.Username, &user.Permissionlevel); err != nil {
-			return nil, fmt.Errorf("All users: %v", err)
-		}
-		users = append(users, user)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, fmt.Errorf("All users: %v", err)
-	}
-	return users, nil
-}
-
-func login() int {
+func login() User {
 	var user User
-	user.Username = os.Args[1]
-	password, err := bcrypt.GenerateFromPassword([]byte(os.Args[2]), bcrypt.MinCost)
-	user.Password = string(password)
-	rows, err := db.Query("SELECT Permission FROM Users WHERE Username = ? AND Password = ?", user.Username, user.Password)
+	var username string
+	var passwrd string
+
+	fmt.Println("Please enter your username")
+	fmt.Scanln(&username)
+	fmt.Println("Please enter your password")
+	fmt.Scanln(&passwrd)
+
+	password, err := bcrypt.GenerateFromPassword([]byte(passwrd), bcrypt.MinCost)
+	rows, err := db.Query("SELECT Permission FROM Users WHERE Username = ? AND Password = ?", username, password)
 
 	for rows.Next() {
-		err = rows.Scan(user.Permissionlevel)
-		if err != nil {
-			panic(err.Error())
-		}
+		err = rows.Scan(&user.Permissionlevel)
+		checkError(err)
 		defer rows.Close()
-		user.Permissionlevel, err = fmt.Println(user.Permissionlevel)
-		return user.Permissionlevel
 	}
-	return user.Permissionlevel
+	permlevel, err := fmt.Println("Your permissionlevel:", user.Permissionlevel)
+	currentUser := User{username, string(password), permlevel}
+	return currentUser
 }
 
 func createUser(name string, pwd string, level int) {
-	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
-	rows, err := db.Query("INSERT INTO Users (Username, Password, Permission) VALUES (?, ?, ?) ", name, passwd, level)
-	defer rows.Close()
+	var user User
+	if user.Permissionlevel == 10 {
+		passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
+		rows, err := db.Query("SELECT * FROM Users WHERE Username VALUES (?)", name)
+		defer rows.Close()
 
-	checkError(err)
-	checkError(errs)
+		if rows.Next() {
+			fmt.Println("User already exists")
+		} else {
+			db.Query("INSERT INTO Users (Username, Password, Permission) VALUES (?, ?, ?) ", name, passwd, level)
+
+		}
+		checkError(errs)
+		checkError(err)
+	} else {
+		fmt.Println("You can't do this", user.Username)
+	}
 }
