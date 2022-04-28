@@ -3,7 +3,10 @@ package main
 import "fmt"
 
 func main() {
+	cybertool()
+}
 
+func cybertool() {
 	fmt.Println("Donkey's Cybertool")
 	fmt.Println("This tool contains a lot of features")
 	fmt.Println("Please login or create an account")
