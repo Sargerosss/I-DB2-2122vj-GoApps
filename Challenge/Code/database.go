@@ -47,6 +47,7 @@ func dbConn() {
 	checkError(err)
 
 	fmt.Println("Connected!")
+	defer db.Close()
 }
 
 func checkError(err error) {
