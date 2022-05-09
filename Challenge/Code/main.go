@@ -19,6 +19,7 @@ func cybertool() {
 		login()
 		defer selectTool()
 	} else if option == 2 {
+		dbConn()
 		var name string
 		var password string
 		fmt.Println("Please enter a username")

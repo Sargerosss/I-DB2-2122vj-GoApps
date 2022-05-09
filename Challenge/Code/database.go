@@ -38,8 +38,8 @@ func dbConn() {
 		User:   os.Getenv("DBUSER"),
 		Passwd: os.Getenv("DBPASS"),
 		Net:    "tcp",
-		Addr:   "(IP):3306",
-		DBName: "users",
+		Addr:   os.Getenv("DBIP"),
+		DBName: os.Getenv("DBTABLE"),
 	}
 
 	var err error
