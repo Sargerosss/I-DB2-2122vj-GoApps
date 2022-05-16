@@ -17,9 +17,8 @@ func cybertool() {
 	fmt.Println("Or (3) Close the application")
 	var option int
 	fmt.Scanln(&option)
-
+	db := dbConnection()
 	if option == 1 {
-		db := dbConnection()
 		user := login(db)
 		defer selectTool(user, db)
 	} else if option == 2 {

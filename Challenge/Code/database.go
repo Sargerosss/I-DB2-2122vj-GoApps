@@ -57,7 +57,7 @@ func login(db *sql.DB) User {
 	fmt.Scanln(&passwrd)
 
 	password, err := bcrypt.GenerateFromPassword([]byte(passwrd), bcrypt.MinCost)
-	rows, err := db.Query("SELECT Permission FROM Users WHERE Username = ? AND Password = ?", username, password)
+	rows, err := db.Query("SELECT Permission FROM users WHERE Username = ? AND Password = ?", username, password)
 
 	for rows.Next() {
 		err = rows.Scan(&user.Permissionlevel)
@@ -70,9 +70,10 @@ func login(db *sql.DB) User {
 }
 
 func createUser(name string, pwd string, level int, db *sql.DB) {
-	dbConnection()
+	//dbConnection()
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
-	rows, err := db.Query("SELECT * FROM Users WHERE Username VALUES (?)", name)
+	rows, err := db.Query("SELECT * FROM users WHERE Username VALUES (?)", name)
+	fmt.Println(passwd)
 
 	checkError(errs)
 	checkError(err)
@@ -82,7 +83,7 @@ func createUser(name string, pwd string, level int, db *sql.DB) {
 	if rows.Next() {
 		fmt.Println("User already exists")
 	} else {
-		db.Query("INSERT INTO Users (Username, Password, Permission) VALUES (?, ?, ?) ", name, passwd, level)
+		db.Query("INSERT INTO users (Username, Password, Permission) VALUES (?, ?, ?) ", name, passwd, level)
 
 	}
 
