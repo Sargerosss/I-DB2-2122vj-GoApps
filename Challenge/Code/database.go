@@ -46,7 +46,7 @@ func dbConnection() (db *sql.DB) {
 	return db
 }
 
-func login() User {
+func login(db *sql.DB) User {
 	var user User
 	var username string
 	var passwrd string
@@ -69,7 +69,7 @@ func login() User {
 	return currentUser
 }
 
-func createUser(name string, pwd string, level int) {
+func createUser(name string, pwd string, level int, db *sql.DB) {
 	dbConnection()
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
 	rows, err := db.Query("SELECT * FROM Users WHERE Username VALUES (?)", name)

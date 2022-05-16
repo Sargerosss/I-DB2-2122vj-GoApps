@@ -1,10 +1,11 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 )
 
-func selectTool(user User) {
+func selectTool(user User, db *sql.DB) {
 	fmt.Println("Please choose an option:")
 	fmt.Println("0. Send mail to Admin (Request higher permission level)")
 	fmt.Println("1. Lookup DNS")
@@ -25,9 +26,9 @@ func selectTool(user User) {
 	} else if option == 3 {
 		fmt.Println("Coming soon")
 	} else if option == 10 && user.Permissionlevel == 10 {
-		adminPanel(user)
+		adminPanel(user, db)
 	} else {
 		fmt.Println("Invalid option, please try again", user.Username)
-		selectTool(user)
+		selectTool(user, db)
 	}
 }

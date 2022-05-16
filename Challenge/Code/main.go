@@ -19,9 +19,9 @@ func cybertool() {
 	fmt.Scanln(&option)
 
 	if option == 1 {
-		dbConnection()
-		user := login()
-		defer selectTool(user)
+		db := dbConnection()
+		user := login(db)
+		defer selectTool(user, db)
 	} else if option == 2 {
 		var name string
 		var password string
@@ -30,7 +30,7 @@ func cybertool() {
 		fmt.Println("Please enter your password")
 		fmt.Scanln(&password)
 		level := 0
-		createUser(name, password, level)
+		createUser(name, password, level, db)
 		cybertool()
 	} else if option == 3 {
 		fmt.Println("Have a good day, closing application...")

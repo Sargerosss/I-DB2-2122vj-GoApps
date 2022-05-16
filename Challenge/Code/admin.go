@@ -1,8 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+)
 
-func adminPanel(user User) {
+func adminPanel(user User, db *sql.DB) {
 	fmt.Println("Admin Panel")
 	fmt.Println("Please choose an option")
 	fmt.Println("1. Create User")
@@ -20,6 +23,6 @@ func adminPanel(user User) {
 		fmt.Scanln(&password)
 		fmt.Println("Please choose a permissionlevel")
 		fmt.Scan(&level)
-		createUser(username, password, level)
+		createUser(username, password, level, db)
 	}
 }
