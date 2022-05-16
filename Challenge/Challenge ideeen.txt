@@ -52,3 +52,5 @@ Afgevallen ideeën
 3) Zoals in de Workshop laten zien > Git(hub) API opvragen en filteren
 4) Teams API en hiermee werken?
 5) Iets gaan doen voor de Proftaak (Licht, geluid?)
+
+Anders?

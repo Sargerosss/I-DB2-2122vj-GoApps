@@ -1,14 +1,16 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"net/smtp"
 	"os"
+	"time"
 
 	"github.com/joho/godotenv"
 )
 
-func mailer(user User) {
+func mailer(user User, db *sql.DB) {
 	godotenv.Load()
 	emailTo := os.Getenv("EMAIL_TO")
 	var fromEmail string
@@ -35,4 +37,6 @@ func mailer(user User) {
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, fromEmail, toEmail, message)
 	checkError(err)
 	fmt.Println("Email sent succesfully", user.Username)
+	time.Sleep(2 * time.Second)
+	continueTool(user, db)
 }

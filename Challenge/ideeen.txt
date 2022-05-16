@@ -11,3 +11,5 @@ Uitwerking:
 - Welke APIs
 - Welke features
 - Database server
+
+Anders?

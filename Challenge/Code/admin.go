@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"time"
 )
 
 func adminPanel(user User, db *sql.DB) {
@@ -24,5 +25,7 @@ func adminPanel(user User, db *sql.DB) {
 		fmt.Println("Please choose a permissionlevel")
 		fmt.Scan(&level)
 		createUser(username, password, level, db)
+		time.Sleep(2 * time.Second)
+		continueTool(user, db)
 	}
 }
