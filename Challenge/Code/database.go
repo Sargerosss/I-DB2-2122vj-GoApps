@@ -27,11 +27,7 @@ type User struct {
 	Permissionlevel int
 }
 
-func main() {
-
-}
-
-func dbConn() {
+func dbConnection() (db *sql.DB) {
 
 	godotenv.Load()
 	cfg := mysql.Config{
@@ -47,13 +43,7 @@ func dbConn() {
 	checkError(err)
 
 	fmt.Println("Connected!")
-	defer db.Close()
-}
-
-func checkError(err error) {
-	if err != nil {
-		panic(err.Error())
-	}
+	return db
 }
 
 func login() User {
@@ -80,21 +70,20 @@ func login() User {
 }
 
 func createUser(name string, pwd string, level int) {
-	var user User
-	if user.Permissionlevel == 10 {
-		passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
-		rows, err := db.Query("SELECT * FROM Users WHERE Username VALUES (?)", name)
-		defer rows.Close()
+	dbConnection()
+	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
+	rows, err := db.Query("SELECT * FROM Users WHERE Username VALUES (?)", name)
 
-		if rows.Next() {
-			fmt.Println("User already exists")
-		} else {
-			db.Query("INSERT INTO Users (Username, Password, Permission) VALUES (?, ?, ?) ", name, passwd, level)
+	checkError(errs)
+	checkError(err)
 
-		}
-		checkError(errs)
-		checkError(err)
+	defer rows.Close()
+
+	if rows.Next() {
+		fmt.Println("User already exists")
 	} else {
-		fmt.Println("You can't do this", user.Username)
+		db.Query("INSERT INTO Users (Username, Password, Permission) VALUES (?, ?, ?) ", name, passwd, level)
+
 	}
+
 }
