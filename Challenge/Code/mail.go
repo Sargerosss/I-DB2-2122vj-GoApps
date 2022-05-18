@@ -36,7 +36,8 @@ func mailer(user User, db *sql.DB) {
 
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, fromEmail, toEmail, message)
 	checkError(err)
-	fmt.Println("Email sent succesfully", user.Username)
+	time.Sleep(1 * time.Second)
+	fmt.Println("Email sent succesfully,", user.Username)
 	time.Sleep(2 * time.Second)
-	continueTool(user, db)
+	defer continueTool(user, db)
 }

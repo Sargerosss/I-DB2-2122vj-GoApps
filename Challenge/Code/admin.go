@@ -27,5 +27,8 @@ func adminPanel(user User, db *sql.DB) {
 		createUser(username, password, level, db)
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
+	} else {
+		fmt.Println("Not an option")
+		adminPanel(user, db)
 	}
 }

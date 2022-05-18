@@ -8,7 +8,7 @@ import (
 
 func continueTool(user User, db *sql.DB) {
 	fmt.Println("Would you like to (1) go back")
-	fmt.Println("Or (2) logout (and return to login screen")
+	fmt.Println("Or (2) logout (and return to login screen)")
 	fmt.Println("Or (3) close application")
 
 	var option int
