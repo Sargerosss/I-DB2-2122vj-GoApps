@@ -8,6 +8,7 @@ import (
 
 func extendedToolSelect(user User, db *sql.DB) {
 	fmt.Println("Other options:")
+	fmt.Println("A reminder, your permission level is", user.Permissionlevel)
 	fmt.Println("1. Tool 9 (Permission 9)")
 	fmt.Println("2. Admin Tool (Permission 10)")
 	fmt.Println("3. Return to previous options")

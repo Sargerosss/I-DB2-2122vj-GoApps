@@ -1,2 +1,0 @@
-PROBLEEM:
-Permissionlevel wordt naar 24 gezet

@@ -10,11 +10,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// Column names:
-// 1) Username
-// 2) Password (Hashed)
-// 3) Permission
-
 type User struct {
 	Username        string
 	Password        string
@@ -37,12 +32,10 @@ func dbConnection() (db *sql.DB) {
 	db, err = sql.Open("mysql", cfg.FormatDSN())
 	checkError(err)
 
-	//fmt.Println("Connected!")
 	return db
 }
 
 func login(db *sql.DB) User {
-	var user User
 	var username string
 	var passwrd string
 
@@ -52,18 +45,17 @@ func login(db *sql.DB) User {
 	fmt.Scanln(&passwrd)
 
 	password, err := bcrypt.GenerateFromPassword([]byte(passwrd), bcrypt.MinCost)
-	rows, err := db.Query("SELECT Permission FROM users WHERE Username = ? AND Password = ?", username, string(password))
-
+	rows, err := db.Query("SELECT Permission FROM users WHERE Username = ?", username)
+	var permLevel int
 	for rows.Next() {
-		err = rows.Scan(&user.Permissionlevel)
+		err = rows.Scan(&permLevel)
 		checkError(err)
 
 	}
 
 	defer rows.Close()
 
-	//fmt.Println("Your permissionlevel:", user.Permissionlevel)
-	currentUser := User{username, string(password), user.Permissionlevel}
+	currentUser := User{username, string(password), permLevel}
 	return currentUser
 }
 
@@ -72,7 +64,7 @@ func createUser(name string, pwd string, level int, db *sql.DB) {
 
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.MinCost)
 	checkError(errs)
-	rows, err := db.Query("SELECT * FROM users WHERE Username VALUES (?)", name)
+	rows, err := db.Query("SELECT * FROM users WHERE Username = ?", name)
 	defer rows.Close()
 	checkError(err)
 
