@@ -32,6 +32,16 @@ func extendedToolSelect(user User, db *sql.DB) {
 	} else {
 		fmt.Println("Invalid option or invalid permission level. Please try again,", user.Username)
 		time.Sleep(2 * time.Second)
-		extendedToolSelect(user, db)
+
+		if falseOption == 2 {
+			time.Sleep(30 * time.Second)
+			fmt.Println("Closing application, too many wrong inputs")
+		} else {
+			falseOption++
+			fmt.Println("Please be careful, you have", falseOption, "invalid options given/tried.")
+			time.Sleep(10 * time.Second)
+			extendedToolSelect(user, db)
+		}
+
 	}
 }

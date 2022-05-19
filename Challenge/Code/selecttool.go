@@ -6,9 +6,12 @@ import (
 	"time"
 )
 
+var falseOption int
+
 func selectTool(user User, db *sql.DB) {
 	fmt.Println("Hello", user.Username)
 	fmt.Println("Your permissionlevel is: ", user.Permissionlevel)
+	fmt.Println("Your ID is", user.ID)
 	fmt.Println("This is your permission level, you can only choose tools that match your level and lower.")
 	fmt.Println("Example: permission level is 5, you can only do 1-5 and not 6")
 	fmt.Println("Please choose an option:")
@@ -46,6 +49,14 @@ func selectTool(user User, db *sql.DB) {
 	} else {
 		fmt.Println("Invalid option or invalid permission level. Please try again,", user.Username)
 		time.Sleep(2 * time.Second)
-		selectTool(user, db)
+
+		if falseOption == 2 {
+			fmt.Println("Closing application, too many wrong inputs")
+		} else {
+			falseOption++
+			fmt.Println("Please be careful, you have", falseOption, "invalid options given/tried.")
+			time.Sleep(10 * time.Second)
+			selectTool(user, db)
+		}
 	}
 }

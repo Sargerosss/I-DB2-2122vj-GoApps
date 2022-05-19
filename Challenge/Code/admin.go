@@ -17,7 +17,8 @@ func adminPanel(user User, db *sql.DB) {
 	var option int
 	fmt.Scanln(&option)
 	if option == 1 {
-		fmt.Println("Coming soon")
+		retrieveAllUsers(user, db)
+		defer continueTool(user, db)
 	} else if option == 2 {
 		fmt.Println("Please choose a Username")
 		var username string
@@ -32,13 +33,16 @@ func adminPanel(user User, db *sql.DB) {
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
 	} else if option == 3 {
-		fmt.Println("Coming soon")
+		removeUser(user, db)
+		continueTool(user, db)
 	} else if option == 4 {
-		fmt.Println("Not an option")
-		adminPanel(user, db)
+		editUser(user, db)
 	} else if option == 5 {
 		fmt.Println("Sending you back")
 		time.Sleep(2 * time.Second)
 		selectTool(user, db)
+	} else {
+		fmt.Println("Not an option")
+		adminPanel(user, db)
 	}
 }

@@ -1,0 +1,5 @@
+Uitgebreid testen (en verwerken in Leerverslag):
+- Admin Panel
+- Huidige functies (behalve Mailer)
+- Afmaken Packets
+- Toevoegen nieuwe features
