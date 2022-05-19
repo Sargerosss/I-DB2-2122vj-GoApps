@@ -33,3 +33,5 @@ require (
 	go.bug.st/serial v1.3.5
 	golang.org/x/crypto v0.0.0-20220312131142-6068a2e6cfdc
 )
+
+require github.com/ghedo/go.pkt v0.0.0-20200209120728-c97f47ad982f // indirect

@@ -20,6 +20,8 @@ func selectTool(user User, db *sql.DB) {
 	fmt.Println("2. John the Ripper (password check)")
 	fmt.Println("3. Extended Lookup DNS")
 	fmt.Println("4. Portsniffer")
+	fmt.Println("5. Packets (Capture, Inject, Encode & Decode)")
+	fmt.Println("6. File Encryption & Decryption")
 	fmt.Println("9. More options (Like log out, close app, and more tools)")
 	var option int
 	fmt.Scanln(&option)
@@ -37,9 +39,9 @@ func selectTool(user User, db *sql.DB) {
 	} else if option == 4 && user.Permissionlevel >= 4 {
 		portsniffer(user, db)
 	} else if option == 5 && user.Permissionlevel >= 5 {
-		fmt.Println("Coming soon")
+		packetTool(user, db)
 	} else if option == 6 && user.Permissionlevel >= 6 {
-		fmt.Println("Coming soon")
+		encryptTool(user, db)
 	} else if option == 7 && user.Permissionlevel >= 7 {
 		fmt.Println("Coming soon")
 	} else if option == 8 && user.Permissionlevel >= 8 {

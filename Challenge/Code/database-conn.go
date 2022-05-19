@@ -74,7 +74,7 @@ func passwordCheck(password string, hashedPassword string) bool {
 }
 
 // Every password different hash (also double ones are receiving new hash)
-func log(db *sql.DB) User {
+func logged(db *sql.DB) User {
 	var username string
 	var passwrd string
 
