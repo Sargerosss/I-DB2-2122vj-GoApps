@@ -14,6 +14,7 @@ func falseOptionFunc(user User, db *sql.DB) {
 
 	if falseOption == 2 {
 		fmt.Println("Closing application, too many wrong inputs")
+		time.Sleep(30 * time.Second)
 	} else {
 		falseOption++
 		fmt.Println("Please be careful, you have", falseOption, "invalid options given/tried.")

@@ -11,11 +11,14 @@ func main() {
 
 func cybertool() {
 	// Print basics
+	fmt.Println("-----------------------")
 	fmt.Println("Donkey's Cybertool")
 	fmt.Println("This tool contains a lot of features")
 	fmt.Println("Please login or create an account")
 	fmt.Println("Do you want to login (1) or create an account (2)?")
 	fmt.Println("Or (3) Close the application")
+	fmt.Println("-----------------------")
+	fmt.Println("Please enter 1, 2 or 3")
 
 	// Enter option
 	var option int
@@ -26,7 +29,6 @@ func cybertool() {
 
 	// If option
 	if option == 1 {
-		// save user into user
 		login(database)
 
 	} else if option == 2 {
