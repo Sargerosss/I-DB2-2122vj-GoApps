@@ -42,7 +42,6 @@ func adminPanel(user User, db *sql.DB) {
 		time.Sleep(2 * time.Second)
 		selectTool(user, db)
 	} else {
-		fmt.Println("Not an option")
-		adminPanel(user, db)
+		falseOptionFunc(user, db)
 	}
 }

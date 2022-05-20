@@ -19,7 +19,7 @@ func encryptTool(user User, db *sql.DB) {
 	} else if option == 2 {
 		decrypt()
 	} else {
-		encryptTool(user, db)
+		falseOptionFunc(user, db)
 	}
 }
 func optionSelect() int {

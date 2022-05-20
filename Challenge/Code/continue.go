@@ -21,5 +21,7 @@ func continueTool(user User, db *sql.DB) {
 	} else if option == 3 {
 		fmt.Println("Closing application in 2 seconds")
 		time.Sleep(2 * time.Second)
+	} else {
+		falseOptionFunc(user, db)
 	}
 }

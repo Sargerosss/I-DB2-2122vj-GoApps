@@ -3,10 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"time"
 )
-
-var falseOption int
 
 func selectTool(user User, db *sql.DB) {
 	fmt.Println("Hello", user.Username)
@@ -20,7 +17,7 @@ func selectTool(user User, db *sql.DB) {
 	fmt.Println("2. John the Ripper (password check)")
 	fmt.Println("3. Extended Lookup DNS")
 	fmt.Println("4. Portsniffer")
-	fmt.Println("5. Packets (Capture, Inject, Encode & Decode)")
+	fmt.Println("5. Packets (Find all Devices, Capture)")
 	fmt.Println("6. File Encryption & Decryption")
 	fmt.Println("9. More options (Like log out, close app, and more tools)")
 	var option int
@@ -49,16 +46,6 @@ func selectTool(user User, db *sql.DB) {
 	} else if option == 9 {
 		extendedToolSelect(user, db)
 	} else {
-		fmt.Println("Invalid option or invalid permission level. Please try again,", user.Username)
-		time.Sleep(2 * time.Second)
-
-		if falseOption == 2 {
-			fmt.Println("Closing application, too many wrong inputs")
-		} else {
-			falseOption++
-			fmt.Println("Please be careful, you have", falseOption, "invalid options given/tried.")
-			time.Sleep(10 * time.Second)
-			selectTool(user, db)
-		}
+		falseOptionFunc(user, db)
 	}
 }

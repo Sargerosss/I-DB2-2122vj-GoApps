@@ -66,10 +66,6 @@ func dnsOption(option int, user User, db *sql.DB) {
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
 	} else {
-		fmt.Println("Invalid option")
-		time.Sleep(2 * time.Second)
-		fmt.Println("Restarting")
-		time.Sleep(time.Second)
-		dnsText()
+		falseOptionFunc(user, db)
 	}
 }

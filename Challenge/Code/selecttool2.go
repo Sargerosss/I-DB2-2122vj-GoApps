@@ -30,18 +30,7 @@ func extendedToolSelect(user User, db *sql.DB) {
 		fmt.Println("Closing application in 2 seconds")
 		time.Sleep(2 * time.Second)
 	} else {
-		fmt.Println("Invalid option or invalid permission level. Please try again,", user.Username)
-		time.Sleep(2 * time.Second)
-
-		if falseOption == 2 {
-			time.Sleep(30 * time.Second)
-			fmt.Println("Closing application, too many wrong inputs")
-		} else {
-			falseOption++
-			fmt.Println("Please be careful, you have", falseOption, "invalid options given/tried.")
-			time.Sleep(10 * time.Second)
-			extendedToolSelect(user, db)
-		}
+		falseOptionFunc(user, db)
 
 	}
 }

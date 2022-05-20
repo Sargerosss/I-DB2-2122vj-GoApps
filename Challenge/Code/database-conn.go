@@ -29,7 +29,23 @@ func dbConnection() (db *sql.DB) {
 
 	return db
 }
+func usernameCheck(username string, db *sql.DB) bool {
+	rows, err := db.Query("SELECT Username FROM users WHERE Username = ?", username)
+	checkError(err)
+	defer rows.Close()
+	for rows.Next() {
+		var name string
+		rows.Scan(&name)
 
+		if name == username {
+			return true
+		} else {
+			fmt.Println("Invalid username")
+			return false
+		}
+	}
+	return false
+}
 func login(db *sql.DB) User {
 	var username string
 	var password string
@@ -48,8 +64,8 @@ func login(db *sql.DB) User {
 		erro := rows.Scan(&id, &name, &pw, &level)
 		checkError(erro)
 		passwordMatch := passwordCheck(password, pw)
-
-		if passwordMatch {
+		usernameMatch := usernameCheck(username, db)
+		if passwordMatch && usernameMatch {
 			currentUser := User{name, pw, level, id}
 			selectTool(currentUser, db)
 			return currentUser
@@ -69,6 +85,7 @@ func passwordCheck(password string, hashedPassword string) bool {
 	if encryptionErr == nil {
 		return true
 	} else {
+		fmt.Println("Invalid password")
 		return false
 	}
 }

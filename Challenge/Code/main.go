@@ -27,9 +27,8 @@ func cybertool() {
 	// If option
 	if option == 1 {
 		// save user into user
-		user := login(database)
-		// start selectTool
-		defer selectTool(user, database)
+		login(database)
+
 	} else if option == 2 {
 		var name string
 		var password string
