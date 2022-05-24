@@ -1,6 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
+	"strings"
+)
 
 // https://api.cloudmersive.com/swagger/index.html?urls.primaryName=Validate%20API
 
@@ -44,4 +50,41 @@ func selectOption(option int) {
 	} else if option == 5 {
 		fmt.Println("Domain")
 	}
+}
+
+func validateCity(city string, stateProvince string, countryFullName string, countryCode string) {
+	url := "https://api.cloudmersive.com/validate/address/city"
+	method := "POST"
+
+	payload := strings.NewReader(`{
+    "City": "<string>",
+    "StateOrProvince": "<string>",
+    "CountryFullName": "<string>",
+    "CountryCode": "<string>"
+}`)
+
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, payload)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Apikey", os.Getenv("API_KEY"))
+
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(string(body))
+
 }
