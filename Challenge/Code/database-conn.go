@@ -4,11 +4,13 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"syscall"
 	"time"
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func dbConnection() (db *sql.DB) {
@@ -48,11 +50,10 @@ func usernameCheck(username string, db *sql.DB) bool {
 }
 func login(db *sql.DB) User {
 	var username string
-	var password string
 	fmt.Println("Please enter your username")
 	fmt.Scanln(&username)
 	fmt.Println("Please enter your password")
-	fmt.Scanln(&password)
+	passwd, err := terminal.ReadPassword(int(syscall.Stdin))
 	rows, err := db.Query("SELECT * FROM users WHERE Username = ?", username)
 	checkError(err)
 	defer rows.Close()
@@ -63,15 +64,19 @@ func login(db *sql.DB) User {
 		var id int
 		erro := rows.Scan(&id, &name, &pw, &level)
 		checkError(erro)
-		passwordMatch := passwordCheck(password, pw)
-		usernameMatch := usernameCheck(username, db)
-		if passwordMatch && usernameMatch {
+		passwordMatch := passwordCheck(string(passwd), pw)
+		if passwordMatch {
 			currentUser := User{name, pw, level, id}
 			selectTool(currentUser, db)
 			return currentUser
-		} else {
-			fmt.Println("Login credentials are incorrect.")
+		} else if !passwordMatch {
+			fmt.Println("Password doesn't match")
 			time.Sleep(3 * time.Second)
+			cybertool()
+			return User{}
+		} else {
+			fmt.Println("Invalid login credentials")
+			time.Sleep(2 * time.Second)
 			cybertool()
 			return User{}
 		}
@@ -88,34 +93,4 @@ func passwordCheck(password string, hashedPassword string) bool {
 		fmt.Println("Invalid password")
 		return false
 	}
-}
-
-// Every password different hash (also double ones are receiving new hash)
-func logged(db *sql.DB) User {
-	var username string
-	var passwrd string
-
-	fmt.Println("Please enter your username")
-	fmt.Scanln(&username)
-	fmt.Println("Please enter your password")
-	fmt.Scanln(&passwrd)
-
-	password, err := bcrypt.GenerateFromPassword([]byte(passwrd), bcrypt.MinCost)
-	checkError(err)
-
-	rows, err := db.Query("SELECT Permission, ID, Password FROM users WHERE Username = ? AND Password = ?", username, password)
-	checkError(err)
-	var permLevel int
-	var id int
-
-	defer rows.Close()
-	for rows.Next() {
-		erro := rows.Scan(&permLevel, &id)
-		checkError(erro)
-
-	}
-
-	currentUser := User{username, string(password), permLevel, id}
-	fmt.Println(currentUser)
-	return currentUser
 }

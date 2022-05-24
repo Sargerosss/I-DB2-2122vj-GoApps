@@ -20,16 +20,11 @@ func createUser(name string, pwd string, level int, db *sql.DB) {
 
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
 	checkError(errs)
-	rows, err := db.Query("SELECT * FROM users WHERE Username = ?", name)
-	defer rows.Close()
+
 	checkError(err)
 
-	if rows.Next() {
-		fmt.Println("User already exists")
-	} else {
-		_, erro := db.Exec("INSERT INTO users (Username, Password, Permission) VALUES (?, ?, ?) ", name, string(passwd), level)
-		checkError(erro)
-	}
+	_, erro := db.Exec("INSERT INTO users (Username, Password, Permission) VALUES (?, ?, ?) ", name, string(passwd), level)
+	checkError(erro)
 
 }
 
@@ -119,6 +114,7 @@ func editUser(user User, db *sql.DB) {
 	} else {
 		fmt.Println("Invalid option. Please try again")
 		time.Sleep(5 * time.Second)
+		falseOptionFunc(user, db)
 		editUser(user, db)
 	}
 }

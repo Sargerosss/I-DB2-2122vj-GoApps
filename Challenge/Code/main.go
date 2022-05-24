@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"syscall"
 	"time"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func main() {
@@ -33,13 +36,13 @@ func cybertool() {
 
 	} else if option == 2 {
 		var name string
-		var password string
 		fmt.Println("Please enter a username")
 		fmt.Scanln(&name)
 		fmt.Println("Please enter your password")
-		fmt.Scanln(&password)
+		passwd, err := terminal.ReadPassword(int(syscall.Stdin))
+		checkError(err)
 		level := 0
-		createUser(name, password, level, database)
+		createUser(name, string(passwd), level, database)
 		defer cybertool()
 	} else if option == 3 {
 		fmt.Println("Have a good day, closing application...")
