@@ -22,11 +22,11 @@ func cybertool() {
 	fmt.Println("Or (3) Close the application")
 	fmt.Println("-----------------------")
 	fmt.Println("Please enter 1, 2 or 3")
-
+	time.Sleep(2 * time.Second)
 	// Enter option
 	var option int
 	fmt.Scanln(&option)
-
+	time.Sleep(2 * time.Second)
 	// Database connection using ENV variables
 	database := dbConnection()
 
@@ -43,6 +43,8 @@ func cybertool() {
 		checkError(err)
 		level := 0
 		createUser(name, string(passwd), level, database)
+		time.Sleep(2 * time.Second)
+		retrieveUserID(name, string(passwd), database)
 		defer cybertool()
 	} else if option == 3 {
 		fmt.Println("Have a good day, closing application...")

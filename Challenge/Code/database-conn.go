@@ -50,11 +50,14 @@ func usernameCheck(username string, db *sql.DB) bool {
 }
 func login(db *sql.DB) User {
 	var username string
+	var id int
 	fmt.Println("Please enter your username")
 	fmt.Scanln(&username)
 	fmt.Println("Please enter your password")
 	passwd, err := terminal.ReadPassword(int(syscall.Stdin))
-	rows, err := db.Query("SELECT * FROM users WHERE Username = ?", username)
+	fmt.Println("Please enter your ID")
+	fmt.Scanln(&id)
+	rows, err := db.Query("SELECT * FROM users WHERE Username = ? AND ID = ?", username, id)
 	checkError(err)
 	defer rows.Close()
 	for rows.Next() {
@@ -67,7 +70,13 @@ func login(db *sql.DB) User {
 		passwordMatch := passwordCheck(string(passwd), pw)
 		if passwordMatch {
 			currentUser := User{name, pw, level, id}
-			selectTool(currentUser, db)
+
+			if level < 11 {
+				selectTool(currentUser, db)
+			} else if level == 11 {
+				helpdeskSelectTool(currentUser, db)
+			}
+
 			return currentUser
 		} else if !passwordMatch {
 			fmt.Println("Password doesn't match")

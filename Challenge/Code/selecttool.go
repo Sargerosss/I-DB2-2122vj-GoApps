@@ -25,6 +25,7 @@ func selectTool(user User, db *sql.DB) {
 	fmt.Println("5. Packets (Find all Devices, Capture)")
 	fmt.Println("6. File Encryption & Decryption")
 	fmt.Println("7. Malware check (Virus & websites using API)")
+	fmt.Println("8. Validator (Validate different things)")
 	fmt.Println("9. More options (Like log out, close app, and more tools)")
 	fmt.Println("-----------------------")
 	var option int
@@ -49,7 +50,7 @@ func selectTool(user User, db *sql.DB) {
 	} else if option == 7 && user.Permissionlevel >= 7 {
 		malwareTool(user, db)
 	} else if option == 8 && user.Permissionlevel >= 8 {
-		fmt.Println("Coming soon")
+		validateTool(user, db)
 	} else if option == 9 {
 		extendedToolSelect(user, db)
 	} else {

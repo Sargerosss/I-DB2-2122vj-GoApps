@@ -16,7 +16,7 @@ type User struct {
 }
 
 func createUser(name string, pwd string, level int, db *sql.DB) {
-	_, err := db.Exec("CREATE TABLE IF NOT EXISTS`users` (`Username` varchar(50) NOT NULL, `Password` varchar(100) NOT NULL, `Permission` int(10) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;")
+	_, err := db.Exec("CREATE TABLE IF NOT EXISTS `users` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Username` varchar(50) NOT NULL, `Password` varchar(100) NOT NULL, `Permission` int(10) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4")
 
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
 	checkError(errs)
@@ -116,5 +116,48 @@ func editUser(user User, db *sql.DB) {
 		time.Sleep(5 * time.Second)
 		falseOptionFunc(user, db)
 		editUser(user, db)
+	}
+}
+
+func retrieveUserID(name string, password string, db *sql.DB) uint8 {
+	rows, err := db.Query("SELECT ID, Password FROM users WHERE Username = ?", name)
+	checkError(err)
+	var id uint8
+	var pwd string
+	for rows.Next() {
+		err = rows.Scan(&id, &pwd)
+		checkError(err)
+		encryptionErr := bcrypt.CompareHashAndPassword([]byte(pwd), []byte(password))
+
+		if encryptionErr == nil {
+			fmt.Println("Your ID is:", id)
+			time.Sleep(2 * time.Second)
+		} else {
+			fmt.Println("Invalid password")
+		}
+	}
+	defer rows.Close()
+
+	return id
+}
+
+func leaderboardAdd(user User, db *sql.DB, room string, score int, website string) {
+	db.Query("CREATE TABLE IF NOT EXISTS `leaderboard` (`UserID` int(10) NOT NULL, `Username` varchar(100) NOT NULL, `Website` varchar(50) NOT NULL, `Room` varchar(50) NOT NULL, `Score` int(100) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
+
+	_, erro := db.Exec("INSERT INTO leaderboard (UserID, Username, Website, Room, Score) VALUES (?, ?, ?) ", user.ID, user.Username, website, room, score)
+	checkError(erro)
+}
+
+func retrieveLeaderboard(user User, db *sql.DB) {
+	rows, err := db.Query("SELECT Username, Website, Score FROM leaderboard")
+	checkError(err)
+	for rows.Next() {
+		var username string
+		var score int
+		var website string
+		err = rows.Scan(&username, &website, &score)
+		checkError(err)
+		fmt.Println("Username:", username, "Website:", website, "Score:", score)
+		time.Sleep(2 * time.Second)
 	}
 }
