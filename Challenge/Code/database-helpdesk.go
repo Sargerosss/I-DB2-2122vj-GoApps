@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"os"
 	"time"
 )
 
@@ -23,7 +24,7 @@ func retrieveAllHDRequests(db *sql.DB) {
 	for rows.Next() {
 		err = rows.Scan(&id, &problemValue, &problemMessage, &username, &assignedTo, &userID, &contactUser)
 		checkError(err)
-		fmt.Println("ID:", id, "Problem (Value):", problemValue, "Message:", problemMessage, "Username", username, "Assigned to:", assignedTo, "User ID", userID, "Contact:", contactUser)
+		fmt.Println("ID:", id, "Problem (Value):", problemValue, "Message:", problemMessage, "Username:", username, "Assigned to:", assignedTo, "User ID:", userID, "Contact:", contactUser)
 		time.Sleep(2 * time.Second)
 	}
 	defer rows.Close()
@@ -31,7 +32,7 @@ func retrieveAllHDRequests(db *sql.DB) {
 
 func helpdeskRequest(user User, db *sql.DB, problem string, contact string) {
 	problemValue := 0
-	_, erro := db.Exec("INSERT INTO helpdesk (ProblemValue, Message, Username, AssignedTo, UserID, Contact) VALUES (?, ?, ?) ", problemValue, problem, user.Username, "", user.ID, contact)
+	_, erro := db.Exec("INSERT INTO helpdesk (ProblemValue, Message, Username, AssignedTo, UserID, Contact) VALUES (?, ?, ?, ?, ?, ?) ", problemValue, problem, user.Username, "", user.ID, contact)
 	checkError(erro)
 }
 
@@ -72,13 +73,35 @@ func editHelpdeskRequest(user User, db *sql.DB) {
 }
 
 func removeRequest(user User, db *sql.DB) {
-	fmt.Println("Please enter an ID")
-	var id int
-	fmt.Scanln(&id)
+	if user.ID != 14 {
+		fmt.Println("Do you have permission, if so who gave you permission?")
+		fmt.Println("Please enter a name")
+		var username string
+		fmt.Scanln(&username)
 
-	_, erro := db.Exec("DELETE FROM helpdesk WHERE ID = ?", id)
-	checkError(erro)
-	time.Sleep(2 * time.Second)
-	fmt.Println("Success")
-	helpdeskSelectTool(user, db)
+		if username == os.Getenv("USERNAME") {
+			fmt.Println("Please enter an ID")
+			var id int
+			fmt.Scanln(&id)
+
+			_, erro := db.Exec("DELETE FROM helpdesk WHERE ID = ?", id)
+			checkError(erro)
+			time.Sleep(2 * time.Second)
+			fmt.Println("Success")
+			helpdeskSelectTool(user, db)
+		} else {
+			fmt.Println("No permission, closing the application after 20 seconds")
+			time.Sleep(20 * time.Second)
+		}
+	} else {
+		fmt.Println("Please enter an ID")
+		var id int
+		fmt.Scanln(&id)
+
+		_, erro := db.Exec("DELETE FROM helpdesk WHERE ID = ?", id)
+		checkError(erro)
+		time.Sleep(2 * time.Second)
+		fmt.Println("Success")
+		helpdeskSelectTool(user, db)
+	}
 }

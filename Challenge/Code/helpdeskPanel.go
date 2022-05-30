@@ -23,6 +23,9 @@ func helpdeskSelectTool(user User, db *sql.DB) {
 	fmt.Println("3. Remove request (13/14)")
 	fmt.Println("4. Log out")
 	fmt.Println("5. Close Application")
+	var option int
+	fmt.Scanln(&option)
+	helpdeskOptions(user, db, option)
 }
 
 func helpdeskOptions(user User, db *sql.DB, option int) {

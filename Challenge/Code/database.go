@@ -145,7 +145,7 @@ func retrieveUserID(name string, password string, db *sql.DB) uint8 {
 func leaderboardAdd(user User, db *sql.DB, room string, score int, website string) {
 	db.Query("CREATE TABLE IF NOT EXISTS `leaderboard` (`UserID` int(10) NOT NULL, `Username` varchar(100) NOT NULL, `Website` varchar(50) NOT NULL, `Room` varchar(50) NOT NULL, `Score` int(100) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
 
-	_, erro := db.Exec("INSERT INTO leaderboard (UserID, Username, Website, Room, Score) VALUES (?, ?, ?) ", user.ID, user.Username, website, room, score)
+	_, erro := db.Exec("INSERT INTO leaderboard (UserID, Username, Website, Room, Score) VALUES (?, ?, ?, ?, ?) ", user.ID, user.Username, website, room, score)
 	checkError(erro)
 }
 

@@ -9,6 +9,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"os"
 )
 
 func encryptTool(user User, db *sql.DB) {
@@ -38,10 +39,9 @@ func encrypt() {
 	fmt.Scanln(&file)
 	plaintext, err := ioutil.ReadFile(file)
 	checkError(err)
-
-	key, err := ioutil.ReadFile("key")
+	key := os.Getenv("KEY")
 	checkError(err)
-	block, err := aes.NewCipher(key)
+	block, err := aes.NewCipher([]byte(key))
 	checkError(err)
 
 	gcm, err := cipher.NewGCM(block)
@@ -64,10 +64,9 @@ func decrypt() {
 	ciphertext, err := ioutil.ReadFile("ciphertext.bin")
 	checkError(err)
 
-	key, err := ioutil.ReadFile("key")
+	key := os.Getenv("KEY")
 	checkError(err)
-
-	block, err := aes.NewCipher(key)
+	block, err := aes.NewCipher([]byte(key))
 	checkError(err)
 	gcm, err := cipher.NewGCM(block)
 	checkError(err)

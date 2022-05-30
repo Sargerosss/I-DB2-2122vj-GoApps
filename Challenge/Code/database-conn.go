@@ -73,7 +73,7 @@ func login(db *sql.DB) User {
 
 			if level < 11 {
 				selectTool(currentUser, db)
-			} else if level == 11 {
+			} else if level > 11 {
 				helpdeskSelectTool(currentUser, db)
 			}
 
