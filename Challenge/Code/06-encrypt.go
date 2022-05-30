@@ -36,7 +36,7 @@ func encrypt() {
 	fmt.Println("Please choose a file")
 	var file string
 	fmt.Scanln(&file)
-	plaintext, err := ioutil.ReadFile("plaintext.txt")
+	plaintext, err := ioutil.ReadFile(file)
 	checkError(err)
 
 	key, err := ioutil.ReadFile("key")
@@ -60,6 +60,7 @@ func encrypt() {
 
 func decrypt() {
 	fmt.Println("Now decrypting")
+	fmt.Println("There has to be a file named ciphertext.bin")
 	ciphertext, err := ioutil.ReadFile("ciphertext.bin")
 	checkError(err)
 

@@ -26,11 +26,26 @@ func helpdeskSelectTool(user User, db *sql.DB) {
 }
 
 func helpdeskOptions(user User, db *sql.DB, option int) {
-	if option == 1 {
+	if option == 1 && user.Permissionlevel >= 11 {
+		databaseConn(db)
+		time.Sleep(2 * time.Second)
 		retrieveAllHDRequests(db)
 		time.Sleep(2 * time.Second)
 		helpdeskSelectTool(user, db)
-	} else if option == 2 {
-		fmt.Println("")
+	} else if option == 2 && user.Permissionlevel >= 12 {
+		editHelpdeskRequest(user, db)
+		time.Sleep(2 * time.Second)
+		helpdeskSelectTool(user, db)
+	} else if option == 3 && user.Permissionlevel >= 13 {
+		removeRequest(user, db)
+		time.Sleep(2 * time.Second)
+		helpdeskSelectTool(user, db)
+	} else if option == 4 {
+		cybertool()
+	} else if option == 5 {
+		fmt.Println("Closing application in 2 seconds")
+		time.Sleep(2 * time.Second)
+	} else {
+		falseOptionFunc(user, db)
 	}
 }

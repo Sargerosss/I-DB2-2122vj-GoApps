@@ -11,6 +11,7 @@ func selectTool(user User, db *sql.DB) {
 	fmt.Println("Hello", user.Username)
 	fmt.Println("Your permissionlevel is:", user.Permissionlevel)
 	fmt.Println("Your ID is", user.ID)
+	fmt.Println("You will need your ID when logging in")
 	time.Sleep(2 * time.Second)
 	fmt.Println("This is your permission level, you can only choose tools that match your level and lower.")
 	fmt.Println("Example: permission level is 5, you can only do 1-5 and not 6")

@@ -131,6 +131,7 @@ func retrieveUserID(name string, password string, db *sql.DB) uint8 {
 
 		if encryptionErr == nil {
 			fmt.Println("Your ID is:", id)
+			fmt.Println("Keep this ID safe, you will need this to login")
 			time.Sleep(2 * time.Second)
 		} else {
 			fmt.Println("Invalid password")

@@ -10,8 +10,6 @@ import (
 	"time"
 )
 
-// https://api.cloudmersive.com/swagger/index.html?urls.primaryName=Validate%20API
-
 func validateTool(user User, db *sql.DB) {
 	validateText()
 	option := validateOption()
