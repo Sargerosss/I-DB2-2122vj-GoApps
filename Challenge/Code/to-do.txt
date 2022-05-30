@@ -1,4 +1,0 @@
-Uitgebreid testen (en verwerken in Leerverslag):
-- Admin Panel
-- Huidige functies (behalve Mailer)
-- Toevoegen nieuwe features (07, 08 en 09)
