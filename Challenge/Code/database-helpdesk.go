@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"os"
 	"time"
 )
 
@@ -79,7 +78,7 @@ func removeRequest(user User, db *sql.DB) {
 		var username string
 		fmt.Scanln(&username)
 
-		if username == os.Getenv("USERNAME") {
+		if username == "Martijn" {
 			fmt.Println("Please enter an ID")
 			var id int
 			fmt.Scanln(&id)
