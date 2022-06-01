@@ -15,7 +15,7 @@ type User struct {
 	ID              int
 }
 
-func createUser(name string, pwd string, level int, db *sql.DB) {
+func createUser(name string, pwd string, level int, db *sql.DB) []byte {
 	_, err := db.Exec("CREATE TABLE IF NOT EXISTS `users` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Username` varchar(50) NOT NULL, `Password` varchar(100) NOT NULL, `Permission` int(10) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4")
 
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
@@ -25,7 +25,7 @@ func createUser(name string, pwd string, level int, db *sql.DB) {
 
 	_, erro := db.Exec("INSERT INTO users (Username, Password, Permission) VALUES (?, ?, ?) ", name, string(passwd), level)
 	checkError(erro)
-
+	return passwd
 }
 
 func retrieveAllUsers(user User, db *sql.DB) {
@@ -119,23 +119,19 @@ func editUser(user User, db *sql.DB) {
 	}
 }
 
-func retrieveUserID(name string, password string, db *sql.DB) uint8 {
-	rows, err := db.Query("SELECT ID, Password FROM users WHERE Username = ?", name)
+func retrieveUserID(name string, db *sql.DB) uint8 {
+	rows, err := db.Query("SELECT ID FROM users WHERE Username = ?", name)
 	checkError(err)
 	var id uint8
-	var pwd string
+	var username string
 	for rows.Next() {
-		err = rows.Scan(&id, &pwd)
+		err = rows.Scan(&id, &username)
 		checkError(err)
-		encryptionErr := bcrypt.CompareHashAndPassword([]byte(pwd), []byte(password))
 
-		if encryptionErr == nil {
-			fmt.Println("Your ID is:", id)
-			fmt.Println("Keep this ID safe, you will need this to login")
-			time.Sleep(2 * time.Second)
-		} else {
-			fmt.Println("Invalid password")
-		}
+		fmt.Println("Your ID is:", id)
+		fmt.Println("Keep this ID safe, you will need this to login")
+		time.Sleep(2 * time.Second)
+
 	}
 	defer rows.Close()
 

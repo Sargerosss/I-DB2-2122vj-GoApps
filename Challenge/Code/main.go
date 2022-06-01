@@ -44,7 +44,7 @@ func cybertool() {
 		level := 0
 		createUser(name, string(passwd), level, database)
 		time.Sleep(2 * time.Second)
-		retrieveUserID(name, string(passwd), database)
+		retrieveUserID(name, database)
 		defer cybertool()
 	} else if option == 3 {
 		fmt.Println("Have a good day, closing application...")
