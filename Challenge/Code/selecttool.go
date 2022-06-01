@@ -45,6 +45,7 @@ func selectTool(user User, db *sql.DB) {
 	if user.Permissionlevel >= 7 {
 		fmt.Println("7. Malware check (Virus & websites using API)")
 	}
+	time.Sleep(2 * time.Second)
 	if user.Permissionlevel >= 8 {
 		fmt.Println("8. Validator (Validate different things)")
 	}
@@ -56,8 +57,9 @@ func selectTool(user User, db *sql.DB) {
 	if user.Permissionlevel >= 10 {
 		fmt.Println("The Admin Panel can be found there")
 	}
-	time.Sleep(2 * time.Second)
+
 	fmt.Println("-----------------------")
+	time.Sleep(2 * time.Second)
 	var option int
 	fmt.Scanln(&option)
 
