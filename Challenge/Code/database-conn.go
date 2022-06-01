@@ -31,6 +31,7 @@ func dbConnection() (db *sql.DB) {
 
 	return db
 }
+
 func usernameCheck(username string, db *sql.DB) bool {
 	rows, err := db.Query("SELECT Username FROM users WHERE Username = ?", username)
 	checkError(err)
