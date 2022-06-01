@@ -12,6 +12,7 @@ func portsniffer(user User, db *sql.DB) {
 	var portStart int
 	var portEnd int
 	fmt.Println("Please enter an IP address")
+	fmt.Println("This will take a while")
 	fmt.Println("Please add : after entering IP Address")
 	fmt.Scanln(&ip)
 	fmt.Println("Please enter the port start")

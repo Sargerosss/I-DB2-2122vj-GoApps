@@ -27,6 +27,7 @@ func optionSelect() int {
 	fmt.Println("Please choose an option")
 	fmt.Println("1. Encrypt")
 	fmt.Println("2. Decrypt")
+	fmt.Println("You'll need a key, see ENV file")
 	var option int
 	fmt.Scanln(&option)
 
