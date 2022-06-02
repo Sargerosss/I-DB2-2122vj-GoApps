@@ -22,6 +22,7 @@ func adminPanel(user User, db *sql.DB) {
 	} else if option == 2 {
 		fmt.Println("Please choose a Username")
 		fmt.Println("Example: Martijn#0001")
+		fmt.Println("Second example: Josh#9999")
 		var username string
 		var password string
 		var level int

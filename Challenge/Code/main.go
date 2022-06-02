@@ -38,6 +38,7 @@ func cybertool() {
 		var name string
 		fmt.Println("Please enter a username")
 		fmt.Println("Example: Martijn#0001")
+		fmt.Println("Second example: Josh#9999")
 		fmt.Scanln(&name)
 		fmt.Println("Please enter your password")
 		passwd, err := terminal.ReadPassword(int(syscall.Stdin))
