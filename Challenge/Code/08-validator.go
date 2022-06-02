@@ -33,17 +33,14 @@ func validateOption() int {
 func selectOption(option int, user User, db *sql.DB) {
 	if option == 1 {
 		fmt.Println("Domain")
-		fmt.Println("1. Check Domain Name")
-		fmt.Println("Soon more options")
-
-		fmt.Println("Enter a valid domain name (example: google.com):")
+		fmt.Println("Check Domain Name")
 		time.Sleep(2 * time.Second)
 		domainNameCheck()
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
 	} else if option == 2 {
 		fmt.Println("IP Addresses")
-		fmt.Println("1. IP Address Intelligence")
+		fmt.Println("IP Address Intelligence")
 		ipAddressIntelligence()
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
@@ -62,7 +59,7 @@ func selectOption(option int, user User, db *sql.DB) {
 }
 
 func domainNameCheck() {
-	fmt.Println("Please enter a website")
+	fmt.Println("Please enter a website (example: google.com)")
 	var domain string
 	fmt.Scanln(&domain)
 	url := "https://api.cloudmersive.com/validate/domain/check"
@@ -89,7 +86,7 @@ func domainNameCheck() {
 
 func ipAddressIntelligence() {
 	var ip string
-	fmt.Println("Please enter an IP address (just the numbers)")
+	fmt.Println("Please enter an IP address")
 	time.Sleep(2 * time.Second)
 	fmt.Scanln(&ip)
 
