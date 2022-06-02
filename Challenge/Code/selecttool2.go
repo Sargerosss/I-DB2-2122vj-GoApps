@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -15,8 +18,8 @@ func text() {
 }
 func extendedToolSelect(user User, db *sql.DB) {
 	fmt.Println("-----------------------")
-	fmt.Println("Other options:")
 	fmt.Println("A reminder, your permission level is", user.Permissionlevel)
+	fmt.Println("Other options:")
 	if user.Permissionlevel < 9 {
 		text()
 	}
@@ -31,8 +34,14 @@ func extendedToolSelect(user User, db *sql.DB) {
 
 	}
 
-	var option int
-	fmt.Scanln(&option)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+
+	scanner.Scan()
+
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 
 	if option == 1 && user.Permissionlevel >= 9 {
 		challengesTool(user, db)

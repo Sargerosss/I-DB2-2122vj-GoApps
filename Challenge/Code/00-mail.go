@@ -20,7 +20,7 @@ func mailer(user User, db *sql.DB) {
 	fmt.Scanln(&fromEmail)
 	fmt.Println("Please enter your password")
 	fmt.Scanln(&password)
-	fmt.Println("Please enter a file")
+	fmt.Println("Please enter a file (this will read the file and send it as plaintext in an email)")
 	fmt.Scanln(&emailFile)
 	toEmail := []string{emailTo}
 

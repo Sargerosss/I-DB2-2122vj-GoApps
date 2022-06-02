@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -11,20 +14,47 @@ import (
 // 13: Lead Helpdesk
 // 14: Manager
 
-func helpdeskSelectTool(user User, db *sql.DB) {
+func startTextHD(user User, db *sql.DB) {
+	fmt.Println("-----------------------")
 	fmt.Println("Hello", user.Username)
 	fmt.Println("Your permission level:", user.Permissionlevel)
 	fmt.Println("Your ID:", user.ID)
 	fmt.Println("This is the Helpdesk Panel")
 	time.Sleep(2 * time.Second)
 	fmt.Println("Please choose an option")
-	fmt.Println("1. Retrieve all helpdesk requests (11)")
-	fmt.Println("2. Edit helpdesk requests (12/13)")
-	fmt.Println("3. Remove request (13/14)")
+}
+func endTextHD() {
 	fmt.Println("4. Log out")
 	fmt.Println("5. Close Application")
-	var option int
-	fmt.Scanln(&option)
+	fmt.Println("-----------------------")
+}
+func helpdeskSelectTool(user User, db *sql.DB) {
+	if user.Permissionlevel >= 11 {
+		startTextHD(user, db)
+		fmt.Println("1. Retrieve all helpdesk requests (11)")
+	}
+
+	if user.Permissionlevel >= 12 {
+		fmt.Println("2. Edit helpdesk requests (12/13)")
+
+	}
+
+	if user.Permissionlevel >= 13 {
+		fmt.Println("3. Remove request (13/14)")
+
+	}
+
+	endTextHD()
+	time.Sleep(2 * time.Second)
+
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+
+	scanner.Scan()
+
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 	helpdeskOptions(user, db, option)
 }
 

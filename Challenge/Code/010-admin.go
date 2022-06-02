@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -14,8 +17,12 @@ func adminPanel(user User, db *sql.DB) {
 	fmt.Println("3. Remove User")
 	fmt.Println("4. Edit User")
 	fmt.Println("5. Return")
-	var option int
-	fmt.Scanln(&option)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+	scanner.Scan()
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 	if option == 1 {
 		retrieveAllUsers(user, db)
 		defer continueTool(user, db)

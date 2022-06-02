@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
 	"os"
@@ -33,11 +34,15 @@ func dbConnection() (db *sql.DB) {
 }
 
 func login(db *sql.DB) User {
-	var username string
-	fmt.Println("Please enter your username")
+	fmt.Println("Username")
 	fmt.Println("Example: Martijn#0001")
 	fmt.Println("Second example: Josh#9999")
-	fmt.Scanln(&username)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Please enter a username: ")
+
+	scanner.Scan()
+
+	username := scanner.Text()
 	fmt.Println("Please enter your password")
 	passwd, err := terminal.ReadPassword(int(syscall.Stdin))
 	query := "SELECT * FROM users WHERE Username = ?"

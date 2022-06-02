@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -58,8 +61,14 @@ func selectTool(user User, db *sql.DB) {
 
 	fmt.Println("-----------------------")
 	time.Sleep(2 * time.Second)
-	var option int
-	fmt.Scanln(&option)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+
+	scanner.Scan()
+
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 
 	if option == 0 && user.Permissionlevel >= 0 {
 		mailer(user, db)
