@@ -16,20 +16,34 @@ type User struct {
 }
 
 func createUser(name string, pwd string, level int, db *sql.DB) []byte {
-	_, err := db.Exec("CREATE TABLE IF NOT EXISTS `users` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Username` varchar(50) NOT NULL, `Password` varchar(100) NOT NULL, `Permission` int(10) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4")
+	quered := "CREATE TABLE IF NOT EXISTS `users` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Username` varchar(50) NOT NULL, `Password` varchar(100) NOT NULL, `Permission` int(10) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4"
+	_, err := db.Exec(quered)
 
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
 	checkError(errs)
+	usernameCheck := usernameCheck(name, db)
 
+	if usernameCheck {
+		fmt.Println("Username already exists")
+		fmt.Println("Please start again")
+		cybertool()
+	} else {
+		query := "INSERT INTO users (Username, Password, Permission) VALUES (?, ?, ?)"
+		_, erro := db.Exec(query, name, string(passwd), level)
+		checkError(erro)
+		time.Sleep(2 * time.Second)
+		fmt.Println("Account created succesfully")
+		fmt.Println("-----------------------")
+		time.Sleep(2 * time.Second)
+	}
 	checkError(err)
 
-	_, erro := db.Exec("INSERT INTO users (Username, Password, Permission) VALUES (?, ?, ?) ", name, string(passwd), level)
-	checkError(erro)
 	return passwd
 }
 
 func retrieveAllUsers(user User, db *sql.DB) {
-	rows, err := db.Query("SELECT ID, Username, Permission FROM users")
+	query := "SELECT ID, Username, Permission FROM users"
+	rows, err := db.Query(query)
 	checkError(err)
 	var username string
 	var id uint8
@@ -43,7 +57,14 @@ func retrieveAllUsers(user User, db *sql.DB) {
 	defer rows.Close()
 
 }
+func usernameCheck(username string, db *sql.DB) bool {
+	query := "SELECT Username FROM users WHERE Username = ?"
+	rows, err := db.Query(query, username)
+	checkError(err)
+	defer rows.Close()
 
+	return rows.Next()
+}
 func removeUser(user User, db *sql.DB) {
 	fmt.Println("To remove a User, please give their username")
 	fmt.Println("Don't know the Username, but do know the ID? Please enter `ID` or `id`")
@@ -53,11 +74,13 @@ func removeUser(user User, db *sql.DB) {
 		fmt.Println("Please enter the ID as a number")
 		var id int
 		fmt.Scanln(&id)
-		db.Exec("DELETE FROM users WHERE ID = ?", id)
+		query := "DELETE FROM users WHERE ID = ?"
+		db.Exec(query, id)
 		time.Sleep(2 * time.Second)
 		fmt.Println("Succesfully deleted")
 	} else {
-		db.Exec("DELETE FROM users WHERE Username = ?", option)
+		query := "DELETE FROM users WHERE Username = ?"
+		db.Exec(query, option)
 		time.Sleep(2 * time.Second)
 		fmt.Println("Succesfully deleted")
 	}
@@ -81,7 +104,8 @@ func editUser(user User, db *sql.DB) {
 		var newId int
 		fmt.Scanln(&newId)
 		time.Sleep(2 * time.Second)
-		db.Exec("UPDATE users SET ID = ? WHERE ID = ?", newId, currentId)
+		query := "UPDATE users SET ID = ? WHERE ID = ?"
+		db.Exec(query, newId, currentId)
 		time.Sleep(2 * time.Second)
 		fmt.Println("Succesfully updated")
 		time.Sleep(2 * time.Second)
@@ -94,7 +118,8 @@ func editUser(user User, db *sql.DB) {
 		fmt.Println("Please give the new Username")
 		var newUsername string
 		fmt.Scanln(&newUsername)
-		db.Exec("UPDATE users SET Username = ? WHERE ID = ?", newUsername, id)
+		query := "UPDATE users SET Username = ? WHERE ID = ?"
+		db.Exec(query, newUsername, id)
 		time.Sleep(2 * time.Second)
 		fmt.Println("Succesfully updated")
 		time.Sleep(2 * time.Second)
@@ -106,7 +131,8 @@ func editUser(user User, db *sql.DB) {
 		fmt.Println("Please give the new Permissionlevel")
 		var newLevel int
 		fmt.Scanln(&newLevel)
-		db.Exec("UPDATE users SET Permission = ? WHERE ID = ?", newLevel, id)
+		query := "UPDATE users SET Permission = ? WHERE ID = ?"
+		db.Exec(query, newLevel, id)
 		time.Sleep(2 * time.Second)
 		fmt.Println("Succesfully updated")
 		time.Sleep(2 * time.Second)
@@ -119,34 +145,17 @@ func editUser(user User, db *sql.DB) {
 	}
 }
 
-func retrieveUserID(name string, db *sql.DB) uint8 {
-	rows, err := db.Query("SELECT ID FROM users WHERE Username = ?", name)
-	checkError(err)
-	var id uint8
-	var username string
-	for rows.Next() {
-		err = rows.Scan(&id, &username)
-		checkError(err)
-
-		fmt.Println("Your ID is:", id)
-		fmt.Println("Keep this ID safe, you will need this to login")
-		time.Sleep(2 * time.Second)
-
-	}
-	defer rows.Close()
-
-	return id
-}
-
 func leaderboardAdd(user User, db *sql.DB, room string, score int, website string) {
-	db.Query("CREATE TABLE IF NOT EXISTS `leaderboard` (`UserID` int(10) NOT NULL, `Username` varchar(100) NOT NULL, `Website` varchar(50) NOT NULL, `Room` varchar(50) NOT NULL, `Score` int(100) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
-
-	_, erro := db.Exec("INSERT INTO leaderboard (UserID, Username, Website, Room, Score) VALUES (?, ?, ?, ?, ?) ", user.ID, user.Username, website, room, score)
+	query := "CREATE TABLE IF NOT EXISTS `leaderboard` (`UserID` int(10) NOT NULL, `Username` varchar(100) NOT NULL, `Website` varchar(50) NOT NULL, `Room` varchar(50) NOT NULL, `Score` int(100) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+	db.Query(query)
+	quered := "INSERT INTO leaderboard (UserID, Username, Website, Room, Score) VALUES (?, ?, ?, ?, ?) "
+	_, erro := db.Exec(quered, user.ID, user.Username, website, room, score)
 	checkError(erro)
 }
 
 func retrieveLeaderboard(user User, db *sql.DB) {
-	rows, err := db.Query("SELECT Username, Website, Score FROM leaderboard")
+	query := "SELECT Username, Website, Score FROM leaderboard"
+	rows, err := db.Query(query)
 	checkError(err)
 	for rows.Next() {
 		var username string

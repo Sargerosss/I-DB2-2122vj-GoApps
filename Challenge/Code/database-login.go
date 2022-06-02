@@ -32,33 +32,15 @@ func dbConnection() (db *sql.DB) {
 	return db
 }
 
-func usernameCheck(username string, db *sql.DB) bool {
-	rows, err := db.Query("SELECT Username FROM users WHERE Username = ?", username)
-	checkError(err)
-	defer rows.Close()
-	for rows.Next() {
-		var name string
-		rows.Scan(&name)
-
-		if name == username {
-			return true
-		} else {
-			fmt.Println("Invalid username")
-			return false
-		}
-	}
-	return false
-}
 func login(db *sql.DB) User {
 	var username string
-	var id int
 	fmt.Println("Please enter your username")
+	fmt.Println("Example: Martijn#0001")
 	fmt.Scanln(&username)
 	fmt.Println("Please enter your password")
 	passwd, err := terminal.ReadPassword(int(syscall.Stdin))
-	fmt.Println("Please enter your ID")
-	fmt.Scanln(&id)
-	rows, err := db.Query("SELECT * FROM users WHERE Username = ? AND ID = ?", username, id)
+	query := "SELECT * FROM users WHERE Username = ?"
+	rows, err := db.Query(query, username)
 	checkError(err)
 	defer rows.Close()
 	for rows.Next() {
@@ -69,7 +51,8 @@ func login(db *sql.DB) User {
 		erro := rows.Scan(&id, &name, &pw, &level)
 		checkError(erro)
 		passwordMatch := passwordCheck(string(passwd), pw)
-		if passwordMatch {
+		usernameMatch := usernameCheck(username, db)
+		if passwordMatch && usernameMatch {
 			currentUser := User{name, pw, level, id}
 
 			if level < 11 {
@@ -79,7 +62,7 @@ func login(db *sql.DB) User {
 			}
 
 			return currentUser
-		} else if !passwordMatch {
+		} else if !passwordMatch || !usernameMatch {
 			fmt.Println("Password doesn't match")
 			time.Sleep(3 * time.Second)
 			cybertool()

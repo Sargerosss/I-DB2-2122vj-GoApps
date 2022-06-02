@@ -55,17 +55,20 @@ func editHelpdeskRequest(user User, db *sql.DB) {
 		fmt.Println("Please enter the new value")
 		var value int
 		fmt.Scanln(&value)
-		db.Exec("UPDATE helpdesk SET ProblemValue = ? WHERE ID = ?", value, id)
+		exec := "UPDATE helpdesk SET ProblemValue = ? WHERE ID = ?"
+		db.Exec(exec, value, id)
 	} else if edit == 2 && user.Permissionlevel >= 14 {
 		fmt.Println("Please enter the new value")
 		var value string
 		fmt.Scanln(&value)
-		db.Exec("UPDATE helpdesk SET AssignedTo = ? WHERE ID = ?", value, id)
+		exec := "UPDATE helpdesk SET AssignedTo = ? WHERE ID = ?"
+		db.Exec(exec, value, id)
 	} else if edit == 3 && user.Permissionlevel >= 12 {
 		fmt.Println("Please enter the new value")
 		var value string
 		fmt.Scanln(&value)
-		db.Exec("UPDATE helpdesk SET Contact = ? WHERE ID = ?", value, id)
+		exec := "UPDATE helpdesk SET Contact = ? WHERE ID = ?"
+		db.Exec(exec, value, id)
 	} else {
 		falseOptionFunc(user, db)
 	}
@@ -82,8 +85,8 @@ func removeRequest(user User, db *sql.DB) {
 			fmt.Println("Please enter an ID")
 			var id int
 			fmt.Scanln(&id)
-
-			_, erro := db.Exec("DELETE FROM helpdesk WHERE ID = ?", id)
+			exec := "DELETE FROM helpdesk WHERE ID = ?"
+			_, erro := db.Exec(exec, id)
 			checkError(erro)
 			time.Sleep(2 * time.Second)
 			fmt.Println("Success")
@@ -96,8 +99,8 @@ func removeRequest(user User, db *sql.DB) {
 		fmt.Println("Please enter an ID")
 		var id int
 		fmt.Scanln(&id)
-
-		_, erro := db.Exec("DELETE FROM helpdesk WHERE ID = ?", id)
+		exec := "DELETE FROM helpdesk WHERE ID = ?"
+		_, erro := db.Exec(exec, id)
 		checkError(erro)
 		time.Sleep(2 * time.Second)
 		fmt.Println("Success")

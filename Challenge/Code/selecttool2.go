@@ -6,31 +6,29 @@ import (
 	"time"
 )
 
+func text() {
+	fmt.Println("3. Submit a Helpdesk Request")
+	fmt.Println("4. Return to previous options")
+	fmt.Println("5. Logout")
+	fmt.Println("6. Close app")
+	fmt.Println("-----------------------")
+}
 func extendedToolSelect(user User, db *sql.DB) {
+	fmt.Println("-----------------------")
+	fmt.Println("Other options:")
+	fmt.Println("A reminder, your permission level is", user.Permissionlevel)
 	if user.Permissionlevel < 9 {
-		fmt.Println("Other options:")
-		fmt.Println("A reminder, your permission level is", user.Permissionlevel)
-		fmt.Println("3. Submit a Helpdesk Request")
-		fmt.Println("4. Return to previous options")
-		fmt.Println("5. Logout")
-		fmt.Println("6. Close app")
-	} else if user.Permissionlevel == 9 {
-		fmt.Println("Other options:")
-		fmt.Println("A reminder, your permission level is", user.Permissionlevel)
+		text()
+	}
+	if user.Permissionlevel == 9 {
 		fmt.Println("1. Challenge (Permission 9)")
-		fmt.Println("3. Submit a Helpdesk Request")
-		fmt.Println("4. Return to previous options")
-		fmt.Println("5. Logout")
-		fmt.Println("6. Close app")
-	} else if user.Permissionlevel == 10 {
-		fmt.Println("Other options:")
-		fmt.Println("A reminder, your permission level is", user.Permissionlevel)
+		text()
+	}
+	if user.Permissionlevel == 10 {
 		fmt.Println("1. Challenge (Permission 9)")
 		fmt.Println("2. Admin Tool (Permission 10)")
-		fmt.Println("3. Submit a Helpdesk Request")
-		fmt.Println("4. Return to previous options")
-		fmt.Println("5. Logout")
-		fmt.Println("6. Close app")
+		text()
+
 	}
 
 	var option int
