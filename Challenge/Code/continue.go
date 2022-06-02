@@ -8,7 +8,8 @@ import (
 
 func continueTool(user User, db *sql.DB) {
 	fmt.Println("-----------------------")
-	fmt.Println("Would you like to (1) go back")
+	fmt.Println("Would you like to")
+	fmt.Println("(1) go back")
 	fmt.Println("Or (2) logout (and return to login screen)")
 	fmt.Println("Or (3) close application")
 	fmt.Println("-----------------------")
@@ -17,7 +18,12 @@ func continueTool(user User, db *sql.DB) {
 	fmt.Scanln(&option)
 
 	if option == 1 {
-		selectTool(user, db)
+		if user.Permissionlevel > 9 {
+			extendedToolSelect(user, db)
+		} else {
+			selectTool(user, db)
+		}
+
 	} else if option == 2 {
 		cybertool()
 	} else if option == 3 {

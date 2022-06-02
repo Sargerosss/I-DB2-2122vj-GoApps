@@ -38,7 +38,7 @@ func selectTool(user User, db *sql.DB) {
 	}
 
 	if user.Permissionlevel >= 6 {
-		fmt.Println("6. File Encryption & Decryption")
+		fmt.Println("6. File Encryption & Decryption (Requires Key)")
 	}
 	if user.Permissionlevel >= 7 {
 		fmt.Println("7. Malware check (Virus & websites using API)")
