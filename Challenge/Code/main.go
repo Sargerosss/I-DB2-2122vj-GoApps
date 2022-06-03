@@ -49,6 +49,7 @@ func cybertool() {
 		time.Sleep(2 * time.Second)
 		fmt.Print("Please enter your password: ")
 		passwd, err := terminal.ReadPassword(int(syscall.Stdin))
+		fmt.Println()
 		checkError(err)
 		level := 0
 		fmt.Println()
