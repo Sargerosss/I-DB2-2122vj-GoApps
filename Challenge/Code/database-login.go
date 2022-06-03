@@ -14,8 +14,6 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 )
 
-var selectStatement string = "SELECT * FROM users "
-
 func dbConnection() (db *sql.DB) {
 
 	godotenv.Load()
@@ -47,8 +45,8 @@ func login(db *sql.DB) User {
 	username := scanner.Text()
 	fmt.Print("Please enter your password: ")
 	passwd, err := terminal.ReadPassword(int(syscall.Stdin))
-	query := "WHERE Username = ?"
-	rows, err := db.Query(selectStatement+query, username)
+	query := "SELECT * FROM users WHERE Username = ?"
+	rows, err := db.Query(query, username)
 	checkError(err)
 	defer rows.Close()
 	for rows.Next() {
