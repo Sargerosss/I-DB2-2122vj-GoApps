@@ -16,6 +16,7 @@ func dnsTool(user User, db *sql.DB) {
 }
 
 func dnsText() int {
+	fmt.Println("-----------------------")
 	fmt.Println("This is the extended version")
 	fmt.Println("These are all the options")
 	fmt.Println("1. LookupNS")

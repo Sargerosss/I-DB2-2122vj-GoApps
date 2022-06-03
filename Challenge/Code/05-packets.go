@@ -13,10 +13,12 @@ import (
 )
 
 func packetText() {
+	fmt.Println("-----------------------")
 	fmt.Println("The packet tool")
 	fmt.Println("It has the following features")
 	fmt.Println("1. Find All Devices")
 	fmt.Println("2. Capture Packets")
+	fmt.Println("-----------------------")
 	// Only bug: No eth0 on Windows?
 
 }

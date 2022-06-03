@@ -40,6 +40,8 @@ func cybertool() {
 		login(database)
 
 	} else if option == "2" {
+		fmt.Println("-----------------------")
+		fmt.Println("Create an account - Username")
 		fmt.Println("Example: Martijn#0001")
 		fmt.Println("Second example: Josh#9999")
 		scanner := bufio.NewScanner(os.Stdin)

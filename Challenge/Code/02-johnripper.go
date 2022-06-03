@@ -9,6 +9,7 @@ import (
 )
 
 func johnRipper(user User, password string, db *sql.DB) {
+	fmt.Println("-----------------------")
 	fmt.Println("This is John the Ripper, a password checker")
 	fmt.Println("Please wait,", user.Username, ", while I check your password")
 	entropy := 60.0
@@ -22,6 +23,7 @@ func johnRipper(user User, password string, db *sql.DB) {
 	} else {
 		fmt.Println("You can have a stronger password")
 	}
+	fmt.Println("-----------------------")
 	time.Sleep(3 * time.Second)
 	defer continueTool(user, db)
 }

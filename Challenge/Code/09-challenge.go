@@ -10,6 +10,7 @@ import (
 )
 
 func challengesTool(user User, db *sql.DB) {
+	fmt.Println("-----------------------")
 	fmt.Println("I was running out of options, so instead of an API, I'll give you some challenges")
 	fmt.Println("You can do a challenge and add yourself to our leaderboard")
 	fmt.Println("Please choose an option")

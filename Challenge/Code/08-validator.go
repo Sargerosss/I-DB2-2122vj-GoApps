@@ -18,12 +18,14 @@ func validateTool(user User, db *sql.DB) {
 	selectOption(option, user, db)
 }
 func validateText() {
+	fmt.Println("-----------------------")
 	fmt.Println("This is a validator for data, it can validate things like IP addresses, locations, geocode and decode")
 	fmt.Println("Please choose an option")
 	fmt.Println("1. Domain")
 	fmt.Println("2. IP Addresses")
 	fmt.Println("3. Company Email")
 	fmt.Println("4. Names")
+	fmt.Println("-----------------------")
 }
 
 func validateOption() int {
@@ -35,6 +37,7 @@ func validateOption() int {
 	optionString := scanner.Text()
 	option, err := strconv.Atoi(optionString)
 	checkError(err)
+	fmt.Println("-----------------------")
 	return option
 }
 

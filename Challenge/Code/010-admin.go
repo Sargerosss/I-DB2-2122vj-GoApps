@@ -10,6 +10,7 @@ import (
 )
 
 func adminPanel(user User, db *sql.DB) {
+	fmt.Println("-----------------------")
 	fmt.Println("Admin Panel")
 	fmt.Println("Please choose an option")
 	fmt.Println("1. Show all users")

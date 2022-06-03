@@ -11,6 +11,7 @@ import (
 )
 
 func mailer(user User, db *sql.DB) {
+	fmt.Println("-----------------------")
 	godotenv.Load()
 	emailTo := os.Getenv("EMAIL_TO")
 	var fromEmail string
@@ -37,7 +38,9 @@ func mailer(user User, db *sql.DB) {
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, fromEmail, toEmail, message)
 	checkError(err)
 	time.Sleep(1 * time.Second)
+	fmt.Println("-----------------------")
 	fmt.Println("Email sent succesfully,", user.Username)
+	fmt.Println("-----------------------")
 	time.Sleep(2 * time.Second)
 	defer continueTool(user, db)
 }

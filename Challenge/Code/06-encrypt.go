@@ -26,6 +26,7 @@ func encryptTool(user User, db *sql.DB) {
 	}
 }
 func optionSelect() int {
+	fmt.Println("-----------------------")
 	fmt.Println("Please choose an option")
 	fmt.Println("1. Encrypt")
 	fmt.Println("2. Decrypt")
@@ -36,7 +37,7 @@ func optionSelect() int {
 	optionString := scanner.Text()
 	option, err := strconv.Atoi(optionString)
 	checkError(err)
-
+	fmt.Println("-----------------------")
 	return option
 }
 
