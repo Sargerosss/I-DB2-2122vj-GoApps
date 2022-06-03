@@ -1,21 +1,30 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 )
 
 func continueTool(user User, db *sql.DB) {
 	fmt.Println("-----------------------")
 	fmt.Println("Would you like to")
-	fmt.Println("(1) go back")
-	fmt.Println("Or (2) logout (and return to login screen)")
-	fmt.Println("Or (3) close application")
+	fmt.Println("1. Go back")
+	fmt.Println("2. Logout (and return to login screen)")
+	fmt.Println("3. Close application")
 	fmt.Println("-----------------------")
 
-	var option int
-	fmt.Scanln(&option)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+
+	scanner.Scan()
+
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 
 	if option == 1 {
 		if user.Permissionlevel > 9 {

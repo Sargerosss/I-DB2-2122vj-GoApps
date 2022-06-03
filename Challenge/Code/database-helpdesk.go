@@ -10,11 +10,13 @@ import (
 )
 
 func databaseConn(db *sql.DB) {
-	db.Query("CREATE TABLE `helpdesk` ( `ID` int(11) NOT NULL AUTO_INCREMENT, `ProblemValue` int(11) NOT NULL, `Message` varchar(2000) NOT NULL, `Username` varchar(2000) NOT NULL, `AssignedTo` varchar(100) NOT NULL, `UserID` int(10) NOT NULL, `Contact` varchar(75) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")
+	query := "CREATE TABLE `helpdesk` ( `ID` int(11) NOT NULL AUTO_INCREMENT, `ProblemValue` int(11) NOT NULL, `Message` varchar(2000) NOT NULL, `Username` varchar(2000) NOT NULL, `AssignedTo` varchar(100) NOT NULL, `UserID` int(10) NOT NULL, `Contact` varchar(75) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+	db.Query(query)
 }
 
 func retrieveAllHDRequests(db *sql.DB) {
-	rows, err := db.Query("SELECT * FROM helpdesk")
+	query := "SELECT * FROM helpdesk"
+	rows, err := db.Query(query)
 	checkError(err)
 	var id uint8
 	var problemValue int
@@ -34,7 +36,8 @@ func retrieveAllHDRequests(db *sql.DB) {
 
 func helpdeskRequest(user User, db *sql.DB, problem string, contact string) {
 	problemValue := 0
-	_, erro := db.Exec("INSERT INTO helpdesk (Severity, Message, Username, AssignedTo, UserID, Contact) VALUES (?, ?, ?, ?, ?, ?) ", problemValue, problem, user.Username, "", user.ID, contact)
+	insertExec := "INSERT INTO helpdesk (Severity, Message, Username, AssignedTo, UserID, Contact) VALUES (?, ?, ?, ?, ?, ?)"
+	_, erro := db.Exec(insertExec, problemValue, problem, user.Username, "", user.ID, contact)
 	checkError(erro)
 }
 
@@ -42,8 +45,8 @@ func editHelpdeskRequest(user User, db *sql.DB) {
 	fmt.Println("Please enter an ID")
 	var id int
 	fmt.Scanln(&id)
-
-	_, erro := db.Exec("SELECT * FROM helpdesk WHERE ID = ?", id)
+	selectStatement := "SELECT * FROM helpdesk WHERE ID = ?"
+	_, erro := db.Exec(selectStatement, id)
 	checkError(erro)
 
 	fmt.Println("What do you want to edit?")

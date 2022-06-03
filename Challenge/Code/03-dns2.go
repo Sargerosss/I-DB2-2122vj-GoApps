@@ -1,9 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
 	"net"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -19,8 +22,13 @@ func dnsText() int {
 	fmt.Println("2. LookupAddr")
 	fmt.Println("3. LookupPort")
 	fmt.Println("4. Dial")
-	var option int
-	fmt.Scanln(&option)
+	fmt.Println("-----------------------")
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+	scanner.Scan()
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 
 	return option
 }

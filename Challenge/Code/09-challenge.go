@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 )
 
@@ -14,8 +17,13 @@ func challengesTool(user User, db *sql.DB) {
 	fmt.Println("2. HackTheBox")
 	fmt.Println("3. Other challenges/websites with Rooms?")
 	fmt.Println("4. Retrieve Leaderboard")
-	var option int
-	fmt.Scanln(&option)
+	fmt.Println("-----------------------")
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+	scanner.Scan()
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 	challengeOptions(option, user, db)
 
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
@@ -10,6 +11,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 )
 
 func encryptTool(user User, db *sql.DB) {
@@ -28,8 +30,12 @@ func optionSelect() int {
 	fmt.Println("1. Encrypt")
 	fmt.Println("2. Decrypt")
 	fmt.Println("You'll need a key, see ENV file")
-	var option int
-	fmt.Scanln(&option)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+	scanner.Scan()
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 
 	return option
 }

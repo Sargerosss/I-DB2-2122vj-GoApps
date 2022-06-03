@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/google/gopacket"
@@ -19,8 +22,12 @@ func packetText() {
 }
 
 func packetOption() int {
-	var option int
-	fmt.Scanln(&option)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+	scanner.Scan()
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 	return option
 }
 

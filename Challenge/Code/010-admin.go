@@ -16,7 +16,8 @@ func adminPanel(user User, db *sql.DB) {
 	fmt.Println("2. Create User")
 	fmt.Println("3. Remove User")
 	fmt.Println("4. Edit User")
-	fmt.Println("5. Return")
+	fmt.Println("5. Return to previous page")
+	fmt.Println("-----------------------")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")
 	scanner.Scan()
@@ -49,7 +50,7 @@ func adminPanel(user User, db *sql.DB) {
 	} else if option == 5 {
 		fmt.Println("Sending you back")
 		time.Sleep(2 * time.Second)
-		selectTool(user, db)
+		extendedToolSelect(user, db)
 	} else {
 		falseOptionFunc(user, db)
 	}
