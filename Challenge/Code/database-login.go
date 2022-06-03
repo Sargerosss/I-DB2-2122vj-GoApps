@@ -39,7 +39,7 @@ func login(db *sql.DB) User {
 	fmt.Println("Example: Martijn#0001")
 	fmt.Println("Second example: Josh#9999")
 	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Print("Please enter a username: ")
+	fmt.Print("Please enter your username: ")
 
 	scanner.Scan()
 

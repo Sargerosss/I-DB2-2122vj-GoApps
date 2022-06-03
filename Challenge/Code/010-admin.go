@@ -49,7 +49,9 @@ func adminPanel(user User, db *sql.DB) {
 	} else if option == 4 {
 		editUser(user, db)
 	} else if option == 5 {
+		fmt.Println("-----------------------")
 		fmt.Println("Sending you back")
+		fmt.Println("-----------------------")
 		time.Sleep(2 * time.Second)
 		extendedToolSelect(user, db)
 	} else {
