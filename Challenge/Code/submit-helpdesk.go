@@ -9,13 +9,16 @@ import (
 )
 
 func submitHelpdesk(user User, db *sql.DB) {
-	fmt.Println("What is the problem?")
+	fmt.Print("What is the problem?: ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	line := scanner.Text()
 	fmt.Println("How can we contact you? In case of a serious problem, we would like to keep you updated on our progress")
-	var contact string
-	fmt.Scanln(&contact)
+	fmt.Println("You agree by receiving emails about your request, and you can always ask us to delete your data.")
+	fmt.Println("If you don't agree, please let us know it's not a real address/leave it blank/put in no")
+	scan := bufio.NewScanner(os.Stdin)
+	scan.Scan()
+	contact := scanner.Text()
 	time.Sleep(2 * time.Second)
 	databaseConn(db)
 	time.Sleep(2 * time.Second)

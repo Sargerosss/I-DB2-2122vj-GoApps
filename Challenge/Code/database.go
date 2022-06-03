@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"database/sql"
 	"fmt"
+	"os"
+	"strconv"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -92,9 +95,14 @@ func editUser(user User, db *sql.DB) {
 	fmt.Println("1. Change ID")
 	fmt.Println("2. Change Username")
 	fmt.Println("3. Change Permissionlevel")
-	fmt.Println("Please choose an option")
-	var option int
-	fmt.Scanln(&option)
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Enter an option: ")
+
+	scanner.Scan()
+
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 	if option == 1 {
 		fmt.Println("Please give the current ID")
 		var currentId int

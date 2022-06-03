@@ -43,7 +43,7 @@ func login(db *sql.DB) User {
 	scanner.Scan()
 
 	username := scanner.Text()
-	fmt.Println("Please enter your password")
+	fmt.Print("Please enter your password: ")
 	passwd, err := terminal.ReadPassword(int(syscall.Stdin))
 	query := "SELECT * FROM users WHERE Username = ?"
 	rows, err := db.Query(query, username)
