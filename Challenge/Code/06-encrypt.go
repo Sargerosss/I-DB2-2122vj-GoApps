@@ -12,15 +12,21 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 )
 
+// KEY thanks to https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx
 func encryptTool(user User, db *sql.DB) {
 	option := optionSelect()
 
 	if option == 1 {
 		encrypt()
+		time.Sleep(2 * time.Second)
+		continueTool(user, db)
 	} else if option == 2 {
 		decrypt()
+		time.Sleep(2 * time.Second)
+		continueTool(user, db)
 	} else {
 		falseOptionFunc(user, db)
 	}
@@ -31,6 +37,7 @@ func optionSelect() int {
 	fmt.Println("1. Encrypt")
 	fmt.Println("2. Decrypt")
 	fmt.Println("You'll need a key, see ENV file")
+	fmt.Println("-----------------------")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")
 	scanner.Scan()
@@ -42,7 +49,7 @@ func optionSelect() int {
 }
 
 func encrypt() {
-	fmt.Println("Please choose a file")
+	fmt.Println("Please choose a file to encrypt")
 	var file string
 	fmt.Scanln(&file)
 	plaintext, err := ioutil.ReadFile(file)
@@ -64,6 +71,9 @@ func encrypt() {
 	// Save back to file
 	err = ioutil.WriteFile("ciphertext.bin", ciphertext, 0777)
 	checkError(err)
+	time.Sleep(2 * time.Second)
+	fmt.Println("Succesfully created ciphertext.bin")
+
 }
 
 func decrypt() {
@@ -86,4 +96,6 @@ func decrypt() {
 
 	err = ioutil.WriteFile("plaintext.txt", plaintext, 0777)
 	checkError(err)
+	time.Sleep(2 * time.Second)
+	fmt.Println("Succesfully created plaintext.txt")
 }

@@ -27,11 +27,7 @@ func continueTool(user User, db *sql.DB) {
 	checkError(err)
 
 	if option == 1 {
-		if user.Permissionlevel > 9 {
-			extendedToolSelect(user, db)
-		} else {
-			selectTool(user, db)
-		}
+		selectTool(user, db)
 
 	} else if option == 2 {
 		cybertool()
