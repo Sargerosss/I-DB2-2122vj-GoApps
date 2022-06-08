@@ -7,7 +7,6 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ttacon/chalk"
 	"golang.org/x/crypto/ssh/terminal"
 )
 
@@ -18,12 +17,12 @@ func main() {
 func cybertool() {
 	// Print basics
 	fmt.Println("-----------------------")
-	fmt.Println(chalk.Bold.TextStyle("Donkey's Cybertool"))
+	fmt.Println("Donkey's cybertool")
 	fmt.Println("This tool contains a lot of features")
 	fmt.Println("Please login or create an account")
-	fmt.Println(chalk.Bold.TextStyle("1. Login"))
-	fmt.Println(chalk.Bold.TextStyle("2. Create an account"))
-	fmt.Println(chalk.Bold.TextStyle("3. Close application"))
+	fmt.Println("1. Login")
+	fmt.Println("2. Create an account")
+	fmt.Println("3. Close application")
 	fmt.Println("-----------------------")
 	// Enter option
 	scanner := bufio.NewScanner(os.Stdin)
@@ -42,15 +41,15 @@ func cybertool() {
 
 	} else if option == "2" {
 		fmt.Println("-----------------------")
-		fmt.Println(chalk.Underline.TextStyle("Create an account - Username"))
-		fmt.Println(chalk.Italic.TextStyle("Example: Martijn#0001"))
-		fmt.Println(chalk.Italic.TextStyle("Second example: Josh#9999"))
+		fmt.Println("Create an account - Username")
+		fmt.Println("Example: Martijn#0001")
+		fmt.Println("Second example: Josh#9999")
 		scanner := bufio.NewScanner(os.Stdin)
-		fmt.Print(chalk.Bold.TextStyle("Please enter a username: "))
+		fmt.Print("Please enter a username: ")
 		scanner.Scan()
 		name := scanner.Text()
 		time.Sleep(2 * time.Second)
-		fmt.Print(chalk.Bold.TextStyle("Please enter your password: "))
+		fmt.Print("Please enter your password: ")
 		passwd, err := terminal.ReadPassword(int(syscall.Stdin))
 		fmt.Println()
 		checkError(err)
@@ -60,10 +59,10 @@ func cybertool() {
 		time.Sleep(2 * time.Second)
 		defer cybertool()
 	} else if option == "3" {
-		fmt.Println(chalk.Italic.TextStyle("Have a good day, closing application..."))
+		fmt.Println("Have a good day, closing application...")
 		time.Sleep(2 * time.Second)
 	} else {
-		fmt.Println(chalk.Red.Color("Invalid option, restarting program"))
+		fmt.Println("Invalid option, restarting program")
 		time.Sleep(2 * time.Second)
 		defer cybertool()
 	}
