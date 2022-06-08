@@ -18,6 +18,7 @@ func packetText() {
 	fmt.Println("It has the following features")
 	fmt.Println("1. Find All Devices")
 	fmt.Println("2. Capture Packets")
+	fmt.Println("3. Return to previous options")
 	fmt.Println("-----------------------")
 	// Only bug: No eth0 on Windows?
 
@@ -44,6 +45,8 @@ func packetTool(user User, db *sql.DB) {
 		capturePacket()
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
+	} else if option == 3 {
+		selectTool(user, db)
 	} else {
 		falseOptionFunc(user, db)
 	}

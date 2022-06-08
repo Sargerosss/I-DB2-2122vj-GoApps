@@ -23,6 +23,7 @@ func dnsText() int {
 	fmt.Println("2. LookupAddr")
 	fmt.Println("3. LookupPort")
 	fmt.Println("4. Dial")
+	fmt.Println("5. Return to previous options")
 	fmt.Println("-----------------------")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")
@@ -74,6 +75,8 @@ func dnsOption(option int, user User, db *sql.DB) {
 		fmt.Println(net.Dial(network, ip))
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
+	} else if option == 5 {
+		selectTool(user, db)
 	} else {
 		falseOptionFunc(user, db)
 	}

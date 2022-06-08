@@ -27,6 +27,6 @@ func submitHelpdesk(user User, db *sql.DB) {
 	fmt.Println("-----------------------")
 	fmt.Println("Result")
 	fmt.Println("Sent the request")
-
+	time.Sleep(1 * time.Second)
 	extendedToolSelect(user, db)
 }

@@ -40,7 +40,6 @@ func mailer(user User, db *sql.DB) {
 	time.Sleep(1 * time.Second)
 	fmt.Println("-----------------------")
 	fmt.Println("Email sent succesfully,", user.Username)
-	fmt.Println("-----------------------")
 	time.Sleep(2 * time.Second)
 	defer continueTool(user, db)
 }
