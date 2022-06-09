@@ -24,8 +24,8 @@ func startTextHD(user User, db *sql.DB) {
 	fmt.Println("Please choose an option")
 }
 func endTextHD() {
-	fmt.Println("4. Log out")
-	fmt.Println("5. Close Application")
+	fmt.Println("5. Log out")
+	fmt.Println("6. Close Application")
 	fmt.Println("-----------------------")
 }
 func helpdeskSelectTool(user User, db *sql.DB) {
@@ -41,6 +41,7 @@ func helpdeskSelectTool(user User, db *sql.DB) {
 
 	if user.Permissionlevel >= 13 {
 		fmt.Println("3. Remove request (13/14)")
+		fmt.Println("4. Disguise as a user (13/14)")
 
 	}
 
@@ -73,9 +74,27 @@ func helpdeskOptions(user User, db *sql.DB, option int) {
 		removeRequest(user, db)
 		time.Sleep(2 * time.Second)
 		helpdeskSelectTool(user, db)
-	} else if option == 4 {
-		cybertool()
+	} else if option == 4 && user.Permissionlevel >= 13 {
+		fmt.Println("Be careful, you can't return.")
+		if user.Permissionlevel == 13 {
+
+			fmt.Println("Please choose your permissionlevel (Maximum = 8)")
+			var permission int
+			fmt.Scanln(&permission)
+			if permission < 8 {
+				currUser := User{user.Username, user.Password, permission, user.ID}
+				selectTool(currUser, db)
+			}
+		} else {
+			fmt.Println("Please choose your permissionlevel (Maximum = 8)")
+			var permission int
+			fmt.Scanln(&permission)
+			currUser := User{user.Username, user.Password, permission, user.ID}
+			selectTool(currUser, db)
+		}
 	} else if option == 5 {
+		cybertool()
+	} else if option == 6 {
 		fmt.Println("Closing application in 2 seconds")
 		time.Sleep(2 * time.Second)
 	} else {

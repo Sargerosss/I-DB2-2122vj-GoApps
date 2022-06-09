@@ -37,7 +37,6 @@ func extendedToolSelect(user User, db *sql.DB) {
 		text()
 
 	}
-
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")
 

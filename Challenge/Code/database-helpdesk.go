@@ -10,7 +10,7 @@ import (
 )
 
 func databaseConn(db *sql.DB) {
-	query := "CREATE TABLE `helpdesk` ( `ID` int(11) NOT NULL AUTO_INCREMENT, `ProblemValue` int(11) NOT NULL, `Message` varchar(2000) NOT NULL, `Username` varchar(2000) NOT NULL, `AssignedTo` varchar(100) NOT NULL, `UserID` int(10) NOT NULL, `Contact` varchar(75) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+	query := "CREATE TABLE `helpdesk` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Severity` int(11) NOT NULL, `Message` varchar(2000) NOT NULL, `Username` varchar(2000) NOT NULL, `AssignedTo` varchar(100) NOT NULL, `UserID` int(10) NOT NULL, `Contact` varchar(75) NOT NULL, `UserPermission` int(11) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4"
 	db.Query(query)
 }
 
@@ -25,10 +25,12 @@ func retrieveAllHDRequests(db *sql.DB) {
 	var assignedTo string
 	var userID int
 	var contactUser string
+	var permission int
 	for rows.Next() {
-		err = rows.Scan(&id, &problemValue, &problemMessage, &username, &assignedTo, &userID, &contactUser)
+		err = rows.Scan(&id, &problemValue, &problemMessage, &username, &assignedTo, &userID, &contactUser, &permission)
 		checkError(err)
 		fmt.Println("ID:", id, "Severity (Level):", problemValue, "Message:", problemMessage, "Username:", username, "Assigned to:", assignedTo, "User ID:", userID, "Contact:", contactUser)
+		fmt.Println("Permission:", permission)
 		time.Sleep(2 * time.Second)
 	}
 	defer rows.Close()
@@ -36,8 +38,8 @@ func retrieveAllHDRequests(db *sql.DB) {
 
 func helpdeskRequest(user User, db *sql.DB, problem string, contact string) {
 	problemValue := 0
-	insertExec := "INSERT INTO helpdesk (Severity, Message, Username, AssignedTo, UserID, Contact) VALUES (?, ?, ?, ?, ?, ?)"
-	_, erro := db.Exec(insertExec, problemValue, problem, user.Username, "", user.ID, contact)
+	insertExec := "INSERT INTO helpdesk (Severity, Message, Username, AssignedTo, UserID, Contact, UserPermission) VALUES (?, ?, ?, ?, ?, ? ?)"
+	_, erro := db.Exec(insertExec, problemValue, problem, user.Username, "", user.ID, contact, user.Permissionlevel)
 	checkError(erro)
 }
 

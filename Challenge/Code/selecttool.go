@@ -58,7 +58,7 @@ func selectTool(user User, db *sql.DB) {
 	if user.Permissionlevel >= 10 {
 		fmt.Println("The Admin Panel can be found there")
 	}
-
+	fmt.Println("The Helpdesk can be found by entering option 9, then option 3.")
 	fmt.Println("-----------------------")
 	time.Sleep(2 * time.Second)
 	scanner := bufio.NewScanner(os.Stdin)
