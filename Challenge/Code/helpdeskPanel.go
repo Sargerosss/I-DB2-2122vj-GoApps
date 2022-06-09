@@ -76,6 +76,7 @@ func helpdeskOptions(user User, db *sql.DB, option int) {
 		helpdeskSelectTool(user, db)
 	} else if option == 4 && user.Permissionlevel >= 13 {
 		fmt.Println("Be careful, you can't return.")
+		fmt.Println("This is a temporary account, this will not be saved anywhere")
 		if user.Permissionlevel == 13 {
 
 			fmt.Println("Please choose your permissionlevel (Maximum = 8)")
