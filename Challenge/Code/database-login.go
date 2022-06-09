@@ -47,14 +47,12 @@ func login(db *sql.DB) User {
 	fmt.Print("Please enter your password: ")
 	passwd, err := terminal.ReadPassword(int(syscall.Stdin))
 	fmt.Println()
-
 	query := "SELECT * FROM users WHERE Username = ?"
 	rows, err := db.Query(query, username)
 	checkError(err)
 	defer rows.Close()
 
 	for rows.Next() {
-
 		var name string
 		var pw string
 		var level int
@@ -62,8 +60,7 @@ func login(db *sql.DB) User {
 		erro := rows.Scan(&id, &name, &pw, &level)
 		checkError(erro)
 		passwordMatch := passwordCheck(string(passwd), pw)
-		usernameMatch := usernameCheck(username, db)
-
+		usernameMatch := usernameCheck(name, db)
 		if passwordMatch && usernameMatch {
 			currentUser := User{name, pw, level, id}
 
@@ -74,7 +71,6 @@ func login(db *sql.DB) User {
 			}
 
 			return currentUser
-			//|| !usernameMatch
 		} else if !passwordMatch || !usernameMatch {
 			fmt.Println("Password doesn't match")
 			time.Sleep(3 * time.Second)

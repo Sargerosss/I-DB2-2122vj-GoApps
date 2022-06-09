@@ -87,9 +87,15 @@ func helpdeskOptions(user User, db *sql.DB, option int) {
 				selectTool(currUser, db)
 			}
 		} else {
-			fmt.Println("Please choose your permissionlevel (Maximum = 8)")
-			var permission int
-			fmt.Scanln(&permission)
+			fmt.Println("Please choose your permissionlevel (Maximum = 10)")
+			scanner := bufio.NewScanner(os.Stdin)
+			fmt.Print("Please enter the level: ")
+
+			scanner.Scan()
+
+			level := scanner.Text()
+			permission, err := strconv.Atoi(level)
+			checkError(err)
 			currUser := User{user.Username, user.Password, permission, user.ID}
 			selectTool(currUser, db)
 		}
