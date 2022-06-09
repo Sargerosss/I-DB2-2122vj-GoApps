@@ -76,6 +76,7 @@ func dnsOption(option int, user User, db *sql.DB) {
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
 	} else if option == 5 {
+		time.Sleep(2 * time.Second)
 		selectTool(user, db)
 	} else {
 		falseOptionFunc(user, db)

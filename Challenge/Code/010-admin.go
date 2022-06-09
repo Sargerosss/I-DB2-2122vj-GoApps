@@ -17,7 +17,7 @@ func adminPanel(user User, db *sql.DB) {
 	fmt.Println("2. Create User")
 	fmt.Println("3. Remove User")
 	fmt.Println("4. Edit User")
-	fmt.Println("5. Return to previous page")
+	fmt.Println("5. Return to options")
 	fmt.Println("-----------------------")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")

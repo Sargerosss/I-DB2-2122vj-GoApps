@@ -18,6 +18,7 @@ func challengesTool(user User, db *sql.DB) {
 	fmt.Println("2. HackTheBox")
 	fmt.Println("3. Other challenges/websites with Rooms?")
 	fmt.Println("4. Retrieve Leaderboard")
+	fmt.Println("5. Return to options")
 	fmt.Println("-----------------------")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")
@@ -72,6 +73,9 @@ func challengeOptions(option int, user User, db *sql.DB) {
 		retrieveLeaderboard(user, db)
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
+	} else if option == 5 {
+		time.Sleep(2 * time.Second)
+		extendedToolSelect(user, db)
 	} else {
 		falseOptionFunc(user, db)
 	}

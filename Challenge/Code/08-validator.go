@@ -25,6 +25,7 @@ func validateText() {
 	fmt.Println("2. IP Addresses")
 	fmt.Println("3. Company Email")
 	fmt.Println("4. Names")
+	fmt.Println("5. Return to options")
 	fmt.Println("-----------------------")
 }
 
@@ -66,6 +67,12 @@ func selectOption(option int, user User, db *sql.DB) {
 		validateFullName()
 		time.Sleep(2 * time.Second)
 		continueTool(user, db)
+	} else if option == 5 {
+		time.Sleep(2 * time.Second)
+		selectTool(user, db)
+	} else {
+		time.Sleep(2 * time.Second)
+		falseOptionFunc(user, db)
 	}
 }
 
