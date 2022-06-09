@@ -65,7 +65,6 @@ func usernameCheck(username string, db *sql.DB) bool {
 	rows, err := db.Query(query, username)
 	checkError(err)
 	defer rows.Close()
-
 	return rows.Next()
 }
 func removeUser(user User, db *sql.DB) {
