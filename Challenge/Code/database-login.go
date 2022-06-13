@@ -60,8 +60,8 @@ func login(db *sql.DB) User {
 		erro := rows.Scan(&id, &name, &pw, &level)
 		checkError(erro)
 		passwordMatch := passwordCheck(string(passwd), pw)
-		usernameMatch := usernameCheck(name, db)
-		if passwordMatch && usernameMatch {
+		//usernameMatch := usernameCheck(name, db)
+		if passwordMatch {
 			currentUser := User{name, pw, level, id}
 
 			if level < 11 {
@@ -71,7 +71,8 @@ func login(db *sql.DB) User {
 			}
 
 			return currentUser
-		} else if !passwordMatch || !usernameMatch {
+			// || !usernameMatch
+		} else if !passwordMatch {
 			fmt.Println("Password doesn't match")
 			time.Sleep(3 * time.Second)
 			cybertool()
