@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"net/smtp"
 	"os"
+	"syscall"
 	"time"
 
 	"github.com/joho/godotenv"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func mailer(user User, db *sql.DB) {
@@ -16,11 +18,12 @@ func mailer(user User, db *sql.DB) {
 	emailTo := os.Getenv("EMAIL_TO")
 	var fromEmail string
 	var emailFile string
-	var password string
 	fmt.Println("Please enter your email address")
 	fmt.Scanln(&fromEmail)
-	fmt.Println("Please enter your password")
-	fmt.Scanln(&password)
+	fmt.Print("Please enter your password: ")
+	password, err := terminal.ReadPassword(int(syscall.Stdin))
+	fmt.Println()
+	checkError(err)
 	fmt.Println("Please enter a file (this will read the file and send it as plaintext in an email)")
 	fmt.Scanln(&emailFile)
 	toEmail := []string{emailTo}
@@ -33,9 +36,9 @@ func mailer(user User, db *sql.DB) {
 
 	message := []byte(data)
 
-	auth := smtp.PlainAuth("", fromEmail, password, smtpHost)
+	auth := smtp.PlainAuth("", fromEmail, string(password), smtpHost)
 
-	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, fromEmail, toEmail, message)
+	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, fromEmail, toEmail, message)
 	checkError(err)
 	time.Sleep(1 * time.Second)
 	fmt.Println("-----------------------")
