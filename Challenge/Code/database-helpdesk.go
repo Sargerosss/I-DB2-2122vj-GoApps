@@ -38,7 +38,7 @@ func retrieveAllHDRequests(db *sql.DB) {
 
 func helpdeskRequest(user User, db *sql.DB, problem string, contact string) {
 	problemValue := 0
-	insertExec := "INSERT INTO helpdesk (Severity, Message, Username, AssignedTo, UserID, Contact, UserPermission) VALUES (?, ?, ?, ?, ?, ? ?)"
+	insertExec := "INSERT INTO helpdesk (Severity, Message, Username, AssignedTo, UserID, Contact, UserPermission) VALUES (?, ?, ?, ?, ?, ?, ?)"
 	_, erro := db.Exec(insertExec, problemValue, problem, user.Username, "", user.ID, contact, user.Permissionlevel)
 	checkError(erro)
 }

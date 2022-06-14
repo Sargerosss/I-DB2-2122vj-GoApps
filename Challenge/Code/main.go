@@ -17,7 +17,7 @@ func main() {
 func cybertool() {
 	// Print basics
 	fmt.Println("-----------------------")
-	fmt.Println("Donkey's cybertool")
+	fmt.Println("Donkey's Cybertool")
 	fmt.Println("This tool contains a lot of features")
 	fmt.Println("Please login or create an account")
 	fmt.Println("1. Login")
