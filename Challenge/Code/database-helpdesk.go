@@ -29,8 +29,7 @@ func retrieveAllHDRequests(db *sql.DB) {
 	for rows.Next() {
 		err = rows.Scan(&id, &problemValue, &problemMessage, &username, &assignedTo, &userID, &contactUser, &permission)
 		checkError(err)
-		fmt.Println("ID:", id, "Severity (Level):", problemValue, "Message:", problemMessage, "Username:", username, "Assigned to:", assignedTo, "User ID:", userID, "Contact:", contactUser)
-		fmt.Println("Permission:", permission)
+		fmt.Println("ID:", id, "Severity (Level):", problemValue, "Message:", problemMessage, "Username:", username, "Assigned to:", assignedTo, "User ID:", userID, "Contact:", contactUser, "Permission:", permission)
 		time.Sleep(2 * time.Second)
 	}
 	defer rows.Close()
@@ -54,7 +53,7 @@ func editHelpdeskRequest(user User, db *sql.DB) {
 	fmt.Println("What do you want to edit?")
 	fmt.Println("Possible answers:")
 	fmt.Println("1. Severity Level (Requires lv 13)")
-	fmt.Println("2. Assigned To (Requires lv 14)")
+	fmt.Println("2. Assigned To (Requires lv 13)")
 	fmt.Println("3. Contact (Requires lv 12)")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")
@@ -71,7 +70,7 @@ func editHelpdeskRequest(user User, db *sql.DB) {
 		fmt.Scanln(&value)
 		exec := "UPDATE helpdesk SET Severity = ? WHERE ID = ?"
 		db.Exec(exec, value, id)
-	} else if edit == 2 && user.Permissionlevel >= 14 {
+	} else if edit == 2 && user.Permissionlevel >= 13 {
 		fmt.Println("Please enter the new value")
 		var value string
 		fmt.Scanln(&value)
@@ -90,34 +89,22 @@ func editHelpdeskRequest(user User, db *sql.DB) {
 
 func removeRequest(user User, db *sql.DB) {
 	if user.ID != 14 {
-		fmt.Println("Do you have permission, if so who gave you permission?")
-		fmt.Println("Please enter a name")
-		var username string
-		fmt.Scanln(&username)
-
-		if username == "Martijn" {
-			fmt.Println("Please enter an ID")
-			var id int
-			fmt.Scanln(&id)
-			exec := "DELETE FROM helpdesk WHERE ID = ?"
-			_, erro := db.Exec(exec, id)
-			checkError(erro)
-			time.Sleep(2 * time.Second)
-			fmt.Println("Success")
-			helpdeskSelectTool(user, db)
-		} else {
-			fmt.Println("No permission, closing the application after 20 seconds")
-			time.Sleep(20 * time.Second)
-		}
-	} else {
-		fmt.Println("Please enter an ID")
-		var id int
-		fmt.Scanln(&id)
-		exec := "DELETE FROM helpdesk WHERE ID = ?"
-		_, erro := db.Exec(exec, id)
-		checkError(erro)
+		fmt.Println("Please be sure to have permission, and keep things logged in the file")
 		time.Sleep(2 * time.Second)
-		fmt.Println("Success")
-		helpdeskSelectTool(user, db)
+		remove(user, db)
+	} else {
+		remove(user, db)
 	}
+}
+
+func remove(user User, db *sql.DB) {
+	fmt.Println("Please enter an ID")
+	var id int
+	fmt.Scanln(&id)
+	exec := "DELETE FROM helpdesk WHERE ID = ?"
+	_, erro := db.Exec(exec, id)
+	checkError(erro)
+	time.Sleep(2 * time.Second)
+	fmt.Println("Successfully deleted HD request with ID", id)
+	helpdeskSelectTool(user, db)
 }

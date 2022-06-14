@@ -60,8 +60,8 @@ func helpdeskSelectTool(user User, db *sql.DB) {
 }
 
 func helpdeskOptions(user User, db *sql.DB, option int) {
+	databaseConn(db)
 	if option == 1 && user.Permissionlevel >= 11 {
-		databaseConn(db)
 		time.Sleep(2 * time.Second)
 		retrieveAllHDRequests(db)
 		time.Sleep(2 * time.Second)
