@@ -10,7 +10,7 @@ import (
 )
 
 func databaseConn(db *sql.DB) {
-	query := "CREATE TABLE `helpdesk` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Severity` int(11) NOT NULL, `Message` varchar(2000) NOT NULL, `Username` varchar(2000) NOT NULL, `AssignedTo` varchar(100) NOT NULL, `UserID` int(10) NOT NULL, `Contact` varchar(75) NOT NULL, `UserPermission` int(11) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4"
+	query := "CREATE TABLE IF NOT EXISTS `helpdesk` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Severity` int(11) NOT NULL, `Message` varchar(2000) NOT NULL, `Username` varchar(2000) NOT NULL, `AssignedTo` varchar(100) NOT NULL, `UserID` int(10) NOT NULL, `Contact` varchar(75) NOT NULL, `UserPermission` int(11) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4"
 	db.Query(query)
 }
 
