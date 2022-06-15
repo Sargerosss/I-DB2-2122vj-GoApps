@@ -24,8 +24,9 @@ func startTextHD(user User, db *sql.DB) {
 	fmt.Println("Please choose an option")
 }
 func endTextHD() {
-	fmt.Println("5. Log out")
-	fmt.Println("6. Close Application")
+	fmt.Println("5. Edit user settings")
+	fmt.Println("6. Log out")
+	fmt.Println("7. Close Application")
 	fmt.Println("-----------------------")
 }
 func helpdeskSelectTool(user User, db *sql.DB) {
@@ -100,8 +101,10 @@ func helpdeskOptions(user User, db *sql.DB, option int) {
 			selectTool(currUser, db)
 		}
 	} else if option == 5 {
-		cybertool()
+		editSettingsTool(user, db)
 	} else if option == 6 {
+		cybertool()
+	} else if option == 7 {
 		fmt.Println("Closing application in 2 seconds")
 		time.Sleep(2 * time.Second)
 	} else {
