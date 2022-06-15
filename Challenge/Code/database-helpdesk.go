@@ -37,8 +37,9 @@ func retrieveAllHDRequests(db *sql.DB) {
 
 func helpdeskRequest(user User, db *sql.DB, problem string, contact string) {
 	problemValue := 0
+	contactInfo := contact
 	insertExec := "INSERT INTO helpdesk (Severity, Message, Username, AssignedTo, UserID, Contact, UserPermission) VALUES (?, ?, ?, ?, ?, ?, ?)"
-	_, erro := db.Exec(insertExec, problemValue, problem, user.Username, "", user.ID, contact, user.Permissionlevel)
+	_, erro := db.Exec(insertExec, problemValue, problem, user.Username, "", user.ID, contactInfo, user.Permissionlevel)
 	checkError(erro)
 }
 
@@ -47,7 +48,7 @@ func editHelpdeskRequest(user User, db *sql.DB) {
 	var id int
 	fmt.Scanln(&id)
 	selectStatement := "SELECT * FROM helpdesk WHERE ID = ?"
-	_, erro := db.Exec(selectStatement, id)
+	_, erro := db.Query(selectStatement, id)
 	checkError(erro)
 
 	fmt.Println("What do you want to edit?")
@@ -107,4 +108,21 @@ func remove(user User, db *sql.DB) {
 	time.Sleep(2 * time.Second)
 	fmt.Println("Successfully deleted HD request with ID", id)
 	helpdeskSelectTool(user, db)
+}
+
+func retrievePersonalHDReq(user User, db *sql.DB) {
+	query := "SELECT ID, Message, Contact FROM helpdesk WHERE UserID = ?"
+	rows, err := db.Query(query, user.ID)
+	checkError(err)
+	defer rows.Close()
+	for rows.Next() {
+		var id int
+		var message string
+		var contact string
+		err := rows.Scan(&id, &message, &contact)
+		checkError(err)
+		fmt.Println("ID:", id, "Message:", message, "Contact:", contact)
+		time.Sleep(1 * time.Second)
+	}
+	defer continueTool(user, db)
 }

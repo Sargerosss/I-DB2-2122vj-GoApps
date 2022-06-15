@@ -11,11 +11,12 @@ import (
 
 func text() {
 	fmt.Println("3. Submit a Helpdesk Request")
-	fmt.Println("4. Return to previous options")
+	fmt.Println("4. Open Helpdesk requests")
+	fmt.Println("5. Return to previous options")
 	time.Sleep(2 * time.Second)
-	fmt.Println("5. Edit user settings")
-	fmt.Println("6. Logout")
-	fmt.Println("7. Close app")
+	fmt.Println("6. Edit user settings")
+	fmt.Println("7. Logout")
+	fmt.Println("8. Close app")
 	fmt.Println("-----------------------")
 }
 func extendedToolSelect(user User, db *sql.DB) {
@@ -54,12 +55,14 @@ func extendedToolSelect(user User, db *sql.DB) {
 	} else if option == 3 {
 		submitHelpdesk(user, db)
 	} else if option == 4 {
-		selectTool(user, db)
+		retrievePersonalHDReq(user, db)
 	} else if option == 5 {
-		editSettingsTool(user, db)
+		selectTool(user, db)
 	} else if option == 6 {
-		cybertool()
+		editSettingsTool(user, db)
 	} else if option == 7 {
+		cybertool()
+	} else if option == 8 {
 		fmt.Println("-----------------------")
 		fmt.Println("Closing application in 2 seconds")
 		time.Sleep(2 * time.Second)
