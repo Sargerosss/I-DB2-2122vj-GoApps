@@ -188,3 +188,13 @@ func editPassword(plainNewPassword string, user User, db *sql.DB) {
 	fmt.Println("Succesfully edited your username, please login again.")
 	defer cybertool()
 }
+
+func passwordForget(username string, plainPassword string, db *sql.DB) {
+	passwd, errs := bcrypt.GenerateFromPassword([]byte(plainPassword), bcrypt.DefaultCost)
+	checkError(errs)
+	query := "UPDATE users SET Password = ? WHERE Username = ?"
+	db.Exec(query, passwd, username)
+	time.Sleep(2 * time.Second)
+	fmt.Println("Succesfully edited your username, please login again.")
+	defer cybertool()
+}

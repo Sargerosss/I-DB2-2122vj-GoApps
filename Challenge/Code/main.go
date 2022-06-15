@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -23,6 +24,7 @@ func cybertool() {
 	fmt.Println("1. Login")
 	fmt.Println("2. Create an account")
 	fmt.Println("3. Close application")
+	fmt.Println("4. Forgot my password")
 	fmt.Println("-----------------------")
 	// Enter option
 	scanner := bufio.NewScanner(os.Stdin)
@@ -30,16 +32,18 @@ func cybertool() {
 
 	scanner.Scan()
 
-	option := scanner.Text()
+	optionString := scanner.Text()
+	option, err := strconv.Atoi(optionString)
+	checkError(err)
 	time.Sleep(2 * time.Second)
 	// Database connection using ENV variables
 	database := dbConnection()
 
 	// If option
-	if option == "1" {
+	if option == 1 {
 		login(database)
 
-	} else if option == "2" {
+	} else if option == 2 {
 		fmt.Println("-----------------------")
 		fmt.Println("Create an account - Username")
 		fmt.Println("Example: Martijn#0001")
@@ -58,9 +62,21 @@ func cybertool() {
 		createUser(name, string(passwd), level, database)
 		time.Sleep(2 * time.Second)
 		defer cybertool()
-	} else if option == "3" {
+	} else if option == 3 {
 		fmt.Println("Have a good day, closing application...")
 		time.Sleep(2 * time.Second)
+	} else if option == 4 {
+		scanner := bufio.NewScanner(os.Stdin)
+		fmt.Print("Please enter a username: ")
+		scanner.Scan()
+		name := scanner.Text()
+		fmt.Println()
+		fmt.Print("Please enter a new password: ")
+		passwd, err := terminal.ReadPassword(int(syscall.Stdin))
+		fmt.Println()
+		checkError(err)
+		db := dbConnection()
+		passwordForget(name, string(passwd), db)
 	} else {
 		fmt.Println("Invalid option, restarting program")
 		time.Sleep(2 * time.Second)
