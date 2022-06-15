@@ -99,3 +99,11 @@ func passwordCheck(password string, hashedPassword string) bool {
 		return false
 	}
 }
+
+func usernameCheck(username string, db *sql.DB) bool {
+	query := "SELECT Username FROM users WHERE Username = ?"
+	rows, err := db.Query(query, username)
+	checkError(err)
+	defer rows.Close()
+	return rows.Next()
+}

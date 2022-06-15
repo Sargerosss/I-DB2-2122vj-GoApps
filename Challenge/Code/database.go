@@ -60,13 +60,7 @@ func retrieveAllUsers(user User, db *sql.DB) {
 	defer rows.Close()
 
 }
-func usernameCheck(username string, db *sql.DB) bool {
-	query := "SELECT Username FROM users WHERE Username = ?"
-	rows, err := db.Query(query, username)
-	checkError(err)
-	defer rows.Close()
-	return rows.Next()
-}
+
 func removeUser(user User, db *sql.DB) {
 	fmt.Println("To remove a User, please give their username")
 	fmt.Println("Don't know the Username, but do know the ID? Please enter `ID` or `id`")
@@ -173,4 +167,22 @@ func retrieveLeaderboard(user User, db *sql.DB) {
 		fmt.Println("Username:", username, "Website:", website, "Score:", score)
 		time.Sleep(2 * time.Second)
 	}
+}
+
+func editUsername(newUsername string, user User, db *sql.DB) {
+	query := "UPDATE users SET Username = ? WHERE ID = ?"
+	db.Exec(query, newUsername, user.ID)
+	time.Sleep(2 * time.Second)
+	fmt.Println("Succesfully edited your username, please login again.")
+	defer cybertool()
+}
+
+func editPassword(plainNewPassword string, user User, db *sql.DB) {
+	passwd, errs := bcrypt.GenerateFromPassword([]byte(plainNewPassword), bcrypt.DefaultCost)
+	checkError(errs)
+	query := "UPDATE users SET Password = ? WHERE ID = ?"
+	db.Exec(query, passwd, user.ID)
+	time.Sleep(2 * time.Second)
+	fmt.Println("Succesfully edited your username, please login again.")
+	defer cybertool()
 }
