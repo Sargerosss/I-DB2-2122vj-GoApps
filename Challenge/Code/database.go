@@ -195,6 +195,6 @@ func passwordForget(username string, plainPassword string, db *sql.DB) {
 	query := "UPDATE users SET Password = ? WHERE Username = ?"
 	db.Exec(query, passwd, username)
 	time.Sleep(2 * time.Second)
-	fmt.Println("Succesfully edited your username, please login again.")
+	fmt.Println("Succesfully edited your password, please login again.")
 	defer cybertool()
 }
