@@ -37,8 +37,9 @@ func editSettingsTool(user User, db *sql.DB) {
 	if option == 1 {
 		fmt.Println("Please enter a new username")
 		fmt.Println("Example: Martijn#0001 // Josh#9999")
-		var username string
-		fmt.Scanln(&username)
+		scan := bufio.NewScanner(os.Stdin)
+		scan.Scan()
+		username := scanner.Text()
 		usernameCheck := usernameCheck(username, db)
 
 		if !usernameCheck {
@@ -49,7 +50,7 @@ func editSettingsTool(user User, db *sql.DB) {
 			selectTool(user, db)
 		}
 	} else if option == 2 {
-		fmt.Println("Please enter a new password")
+		fmt.Print("Please enter a new password: ")
 		passwd, err := terminal.ReadPassword(int(syscall.Stdin))
 		fmt.Println()
 		checkError(err)

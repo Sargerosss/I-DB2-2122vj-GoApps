@@ -85,9 +85,11 @@ func removeUser(user User, db *sql.DB) {
 
 func editUser(user User, db *sql.DB) {
 	fmt.Println("These are the options")
+	fmt.Println("-----------------------")
 	fmt.Println("1. Change ID")
 	fmt.Println("2. Change Username")
 	fmt.Println("3. Change Permissionlevel")
+	fmt.Println("-----------------------")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter an option: ")
 
