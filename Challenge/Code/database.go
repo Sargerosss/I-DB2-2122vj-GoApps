@@ -19,7 +19,7 @@ type User struct {
 }
 
 func createUser(name string, pwd string, level int, db *sql.DB) []byte {
-	quered := "CREATE TABLE `users` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Username` varchar(50) NOT NULL, `Password` varchar(100) NOT NULL, `Permission` int(10) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4"
+	quered := "CREATE TABLE IF NOT EXISTS `users` (`ID` int(11) NOT NULL AUTO_INCREMENT, `Username` varchar(50) NOT NULL, `Password` varchar(100) NOT NULL, `Permission` int(10) NOT NULL, PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4"
 	_, err := db.Exec(quered)
 
 	passwd, errs := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
@@ -147,7 +147,7 @@ func editUser(user User, db *sql.DB) {
 }
 
 func leaderboardAdd(user User, db *sql.DB, room string, score int, website string) {
-	query := "CREATE TABLE `leaderboard` ( `UserID` int(10) NOT NULL, `Username` varchar(100) NOT NULL, `Website` varchar(50) NOT NULL, `Room` varchar(50) NOT NULL, `Score` int(100) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+	query := "CREATE TABLE IF NOT EXISTS `leaderboard` ( `UserID` int(10) NOT NULL, `Username` varchar(100) NOT NULL, `Website` varchar(50) NOT NULL, `Room` varchar(50) NOT NULL, `Score` int(100) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
 	db.Query(query)
 	quered := "INSERT INTO leaderboard (UserID, Username, Website, Room, Score) VALUES (?, ?, ?, ?, ?) "
 	_, erro := db.Exec(quered, user.ID, user.Username, website, room, score)
