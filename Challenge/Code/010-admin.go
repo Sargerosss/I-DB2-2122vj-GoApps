@@ -30,8 +30,8 @@ func adminPanel(user User, db *sql.DB) {
 		defer continueTool(user, db)
 	} else if option == 2 {
 		fmt.Println("Please choose a Username")
-		fmt.Println("Example: Martijn#0001")
-		fmt.Println("Second example: Josh#9999")
+		fmt.Println("Example: Martijn#5424")
+		fmt.Println("Second example: Josh#1236")
 		var username string
 		var password string
 		var level int

@@ -10,7 +10,7 @@ import (
 func lookupDNS(user User, db *sql.DB) {
 	fmt.Println("-----------------------")
 	fmt.Println("Lookup DNS")
-	fmt.Println("Enter a host")
+	fmt.Println("Enter a website")
 	var host string
 	fmt.Scan(&host)
 	fmt.Println(net.LookupNS(host))

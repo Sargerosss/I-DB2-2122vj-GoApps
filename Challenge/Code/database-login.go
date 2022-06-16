@@ -36,8 +36,8 @@ func dbConnection() (db *sql.DB) {
 func login(db *sql.DB) User {
 	fmt.Println("-----------------------")
 	fmt.Println("Login - Username")
-	fmt.Println("Example: Martijn#0001")
-	fmt.Println("Second example: Josh#9999")
+	fmt.Println("Example: Martijn#5424")
+	fmt.Println("Second example: Josh#1236")
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Please enter your username: ")
 
