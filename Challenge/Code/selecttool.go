@@ -6,7 +6,10 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"syscall"
 	"time"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func startText(user User, db *sql.DB) {
@@ -75,10 +78,10 @@ func selectTool(user User, db *sql.DB) {
 	} else if option == 1 && user.Permissionlevel >= 1 {
 		lookupDNS(user, db)
 	} else if option == 2 && user.Permissionlevel >= 2 {
-		var password string
-		fmt.Println("Please choose a password")
-		fmt.Scanln(&password)
-		johnRipper(user, password, db)
+		fmt.Print("Please enter a password: ")
+		password, err := terminal.ReadPassword(int(syscall.Stdin))
+		johnRipper(user, string(password), db)
+		checkError(err)
 	} else if option == 3 && user.Permissionlevel >= 3 {
 		dnsTool(user, db)
 	} else if option == 4 && user.Permissionlevel >= 4 {

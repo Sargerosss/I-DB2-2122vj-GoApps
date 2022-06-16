@@ -11,10 +11,10 @@ import (
 
 func text() {
 	fmt.Println("3. Submit a Helpdesk Request")
-	fmt.Println("4. Open Helpdesk requests")
+	fmt.Println("4. Check your Helpdesk requests")
 	fmt.Println("5. Return to previous options")
 	time.Sleep(2 * time.Second)
-	fmt.Println("6. Edit user settings")
+	fmt.Println("6. User settings")
 	fmt.Println("7. Logout")
 	fmt.Println("8. Close app")
 	fmt.Println("-----------------------")

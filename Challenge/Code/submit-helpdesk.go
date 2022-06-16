@@ -17,9 +17,8 @@ func submitHelpdesk(user User, db *sql.DB) {
 	fmt.Println("You agree by receiving emails about your request, and you can always ask us to delete your data.")
 	fmt.Println("If you don't agree, please let us know it's not a real address/leave it blank/put in no")
 	fmt.Print("Your contact information: ")
-	scan := bufio.NewScanner(os.Stdin)
-	scan.Scan()
-	contact := scanner.Text()
+	var contact string
+	fmt.Scanln(&contact)
 	time.Sleep(2 * time.Second)
 	databaseConn(db)
 	time.Sleep(2 * time.Second)
